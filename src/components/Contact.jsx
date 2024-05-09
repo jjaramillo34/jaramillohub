@@ -5,9 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
 // load the environment variables react - side using the dotenv package
 
-const emailjsService = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-const emailjsTemplate = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
-const emailjsUser = process.env.REACT_APP_EMAILJS_USER_KEY;
+const emailjsService = process.env.EMAILJS_SERVICE_ID;
+const emailjsTemplate = process.env.EMAILJS_TEMPLATE_ID;
+const emailjsUser = process.env.EMAILJS_USER_KEY;
 
 const Contact = () => {
   const form = useRef();
