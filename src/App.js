@@ -4,9 +4,11 @@ import AllRoutes from "./router/AllRoutes";
 import AnimatedCursor from "react-animated-cursor";
 import { ToastContainer } from "react-toastify";
 import ReactGA from "react-ga4";
+import { Analytics } from "@vercel/analytics/react";
 
 const trackingId = "G-HZ22P07JGN"; // Replace with your Google Analytics tracking ID
 ReactGA.initialize(trackingId);
+ReactGA.send("pageview");
 
 const App = () => {
   // this for animation
@@ -20,6 +22,7 @@ const App = () => {
   return (
     <Suspense fallback={null}>
       <>
+        <Analytics />
         <AnimatedCursor
           // make the pointer larger
           innerSize={8}
