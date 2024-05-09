@@ -1,0 +1,31 @@
+{
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "rules": {
+    // Add custom rules or override existing ones here
+    "no-unused-vars": "off",
+    "no-undef": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/jsx-no-undef": "error",
+    "react/jsx-no-duplicate-props": "error",
+    "react/jsx-key": "error",
+    "react/jsx-no-comment-textnodes": "warn",
+    "react/jsx-no-target-blank": "error",
+    "react/no-unescaped-entities": "off"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "plugins": ["react", "react-hooks"]
+}
