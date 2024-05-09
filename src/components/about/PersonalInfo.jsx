@@ -50,10 +50,23 @@ const PersonalInfo = () => {
     <ul className="about-list list-unstyled open-sans-font">
       {personalInfoContent.map((val, i) => (
         <li key={i}>
-          <span className="title">{val.meta}: </span>
-          <span className="value d-block d-sm-inline-block d-lg-block d-xl-inline-block">
-            {val.metaInfo}
-          </span>
+          {val.meta === "Email" ? (
+            <a href={`mailto:${val.metaInfo}`} className="text-secondary">
+              {val.meta}: {val.metaInfo}
+            </a>
+          ) : (
+            ""
+          )}
+          {val.meta !== "Email" ? (
+            <>
+              {val.meta}: {val.metaInfo}
+            </>
+          ) : (
+            ""
+          )}
+
+          {/* <span className="text-secondary">{val.meta}: </span>
+          {val.metaInfo} */}
         </li>
       ))}
     </ul>
@@ -61,5 +74,3 @@ const PersonalInfo = () => {
 };
 
 export default PersonalInfo;
-
-

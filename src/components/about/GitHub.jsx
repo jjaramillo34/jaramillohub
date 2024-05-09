@@ -15,7 +15,6 @@ const GitHub = () => {
         GitHub Stats
       </h4>
       <img
-        // theme light, dark, radical, merko, gruvbox, tokyonight, onedark, cobalt, synthwave, highcontrast, dracula
         src="https://github-readme-stats.vercel.app/api?username=jjaramillo34&show_icons=true&theme=london-grass"
         alt="Javier Jaramillo's GitHub Stats"
         style={{

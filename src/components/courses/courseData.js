@@ -102,7 +102,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white",
         description:
-          "This course is a introduction to Git. It teaches the basics of Git and how to use it to build a Git repository.",
+          "This course is an introduction to Git, covering from the basics to building a Git repository. You'll learn the fundamentals of Git and how to use it to effectively build and manage a repository, providing you with a solid understanding of version control and software development collaboration.",
       },
     ],
   },
@@ -123,7 +123,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/SQL-025E8C?style=for-the-badge&logo=postgresql&logoColor=white",
         description:
-          "This course is a introduction to SQL. It teaches the basics of SQL and how to use it to build a SQL database.",
+          "This course provides an introduction to SQL, covering the basics of relational databases and how to use SQL to manage and query data effectively.",
       },
     ],
   },
@@ -144,19 +144,19 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/SQL-025E8C?style=for-the-badge&logo=postgresql&logoColor=white",
         description:
-          "This course is a advanced SQL. It teaches the advanced SQL and how to use it to build a SQL database.",
+          "This course delves into advanced SQL topics, providing comprehensive insights into complex database queries and operations.",
       },
     ],
   },
   {
     id: 7,
-    type: "Security and Privacy in for Big Data - Part 2",
+    type: "Security and Privacy in Big Data - Part 2",
     image: Image7,
     tag: ["other", "security"],
     delayAnimation: "1s",
     modalDetails: [
       {
-        project: "Security and Privacy in for Big Data - Part 2",
+        project: "Security and Privacy in Big Data - Part 2",
         client: "Coursera",
         language: "SQL",
         date: "09-15-2020",
@@ -165,19 +165,19 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/google-4285F4?style=for-the-badge&logo=google&logoColor=white",
         description:
-          "This course is a advanced security and privacy in big data. It teaches the advanced security and privacy in big data and how to use it to build a security and privacy in big data model.",
+          "This advanced course focuses on security and privacy issues in big data, exploring sophisticated techniques for safeguarding sensitive information.",
       },
     ],
   },
   {
     id: 8,
-    type: "Security and Privacy in for Big Data - Part 1",
+    type: "Security and Privacy in Big Data - Part 1",
     image: Image8,
     tag: ["other", "security"],
     delayAnimation: "1.2s",
     modalDetails: [
       {
-        project: "Security and Privacy in for Big Data - Part 1",
+        project: "Security and Privacy in Big Data - Part 1",
         client: "Coursera",
         language: "SQL",
         date: "09-15-2020",
@@ -186,7 +186,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/google-4285F4?style=for-the-badge&logo=google&logoColor=white",
         description:
-          "This course is a introduction to security and privacy in big data. It teaches the basics of security and privacy in big data and how to use it to build a security and privacy in big data model.",
+          "This introductory course explores security and privacy concepts in big data, providing foundational knowledge for developing secure data solutions.",
       },
     ],
   },
@@ -207,7 +207,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/google-4285F4?style=for-the-badge&logo=google&logoColor=white",
         description:
-          "This course is a introduction to troubleshooting and debugging techniques. It teaches the basics of troubleshooting and debugging techniques and how to use it to build a troubleshooting and debugging techniques model.",
+          "This introductory course covers essential techniques for identifying and resolving software issues, empowering you to debug efficiently and troubleshoot effectively.",
       },
     ],
   },
@@ -228,7 +228,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white",
         description:
-          "This course is a introduction to Python. It teaches the basics of Python and how to use it to build a Python repository.",
+          "This course provides a comprehensive introduction to Python programming, covering fundamental concepts and practical applications to equip learners with essential Python skills.",
       },
     ],
   },
@@ -249,7 +249,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/tableau-E97627?style=for-the-badge&logo=tableau&logoColor=white",
         description:
-          "This course is a introduction to Data Analysis with Excel & Tableau. It teaches the basics of Data Analysis with Excel & Tableau and how to use it to build a Data Analysis with Excel & Tableau repository.",
+          "This course introduces learners to data analysis using Excel and Tableau, covering essential techniques for analyzing and visualizing data to derive actionable insights.",
       },
     ],
   },
@@ -270,7 +270,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white",
         description:
-          "This course is a introduction to Excel. It teaches the basics of Excel and how to use it to build a Excel repository.",
+          "This course offers comprehensive training on Excel, providing learners with advanced skills and techniques to maximize productivity and efficiency in spreadsheet management.",
       },
     ],
   },
@@ -291,7 +291,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white",
         description:
-          "This course is a introduction to Excel. It teaches the basics of Excel and how to use it to build a Excel repository.",
+          "This beginner-level course provides a solid foundation in Excel 2013, covering essential features and functionalities to help learners get started with spreadsheet tasks effectively.",
       },
     ],
   },
@@ -312,7 +312,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black",
         description:
-          "This course is a introduction to JavaScript. It teaches the basics of JavaScript and how to use it to build a JavaScript repository.",
+          "This course offers an in-depth exploration of JavaScript, focusing on the intricacies and unique aspects of the language to help learners master advanced concepts and coding techniques.",
       },
     ],
   },
@@ -333,7 +333,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=microsoft-power-bi&logoColor=black",
         description:
-          "This course is a introduction to Business Data Analysis with Microsoft Excel and Power BI. It teaches the basics of Business Data Analysis with Microsoft Excel and Power BI and how to use it to build a Business Data Analysis with Microsoft Excel & Power BI repository.",
+          "This course provides comprehensive training on business data analysis using Microsoft Excel and Power BI, equipping learners with the skills to leverage these tools for data-driven decision-making.",
       },
     ],
   },
@@ -354,7 +354,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white",
         description:
-          "This course is a introduction to Python. It teaches the basics of Python and how to use it to build a Python repository.",
+          "This course offers a comprehensive introduction to Python programming, covering fundamental concepts and practical applications to help learners build a strong foundation in Python development.",
       },
     ],
   },
@@ -375,7 +375,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white",
         description:
-          "This course is a introduction to Excel VBA. It teaches the basics of Excel VBA and how to use it to build a Excel VBA repository.",
+          "This course offers hands-on training in Excel VBA programming, providing learners with practical examples and exercises to enhance their skills in automating tasks and processes within Excel.",
       },
     ],
   },
@@ -396,7 +396,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white",
         description:
-          "This course is a introduction to Excel. It teaches the basics of Excel and how to use it to build a Excel repository.",
+          "This accelerated course is designed to help learners quickly master Excel, focusing on essential features and shortcuts to improve productivity and efficiency in spreadsheet management.",
       },
     ],
   },
@@ -417,7 +417,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white",
         description:
-          "This course is a Data Structures and Algorithms with Python. It teaches the basics of Data Structures and Algorithms with Python and how to use it to build a Data Structures and Algorithms with Python repository.",
+          "This course provides a comprehensive exploration of data structures and algorithms using Python, equipping learners with the knowledge and skills to tackle complex programming challenges.",
       },
     ],
   },
@@ -438,7 +438,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white",
         description:
-          "This course is a SQL and Data Modeling with Python. It teaches the basics of SQL and Data Modeling with Python and how to use it to build a SQL and Data Modeling with Python repository.",
+          "This course covers SQL and data modeling concepts using Python, providing learners with practical skills to design and implement databases while leveraging Python programming capabilities.",
       },
     ],
   },
@@ -459,7 +459,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white",
         description:
-          "This course is a Modern Software Engeneering with DevOps. It teaches the basics of Modern Software Engeneering with DevOps and how to use it to build a Modern Software Engeneering with DevOps repository.",
+          "This course offers an in-depth exploration of modern software engineering practices and DevOps principles, combining Python programming with industry-standard tools and methodologies.",
       },
     ],
   },
@@ -480,7 +480,7 @@ const CourseData = [
         techStack:
           "https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white",
         description:
-          "This course is a Backend, SQL, and DevOps with Python Bootcamp. It teaches the basics of Backend, SQL, and DevOps with Python Bootcamp and how to use it to build a Backend, SQL, and DevOps with Python Bootcamp repository.",
+          "This intensive bootcamp covers backend development, SQL database management, and DevOps practices using Python, preparing learners for high-demand roles in software engineering and DevOps.",
       },
     ],
   },

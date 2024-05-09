@@ -13,6 +13,7 @@ const Experience = () => {
         { item: t("experienceDetails10List1") },
         { item: t("experienceDetails10List2") },
         { item: t("experienceDetails10List3") },
+        { item: t("experienceDetails10List4") },
       ],
     },
     {
@@ -36,6 +37,7 @@ const Experience = () => {
         { item: t("experienceDetails30List1") },
         { item: t("experienceDetails30List2") },
         { item: t("experienceDetails30List3") },
+        { item: t("experienceDetails30List4") },
       ],
     },
     {
@@ -47,6 +49,7 @@ const Experience = () => {
         { item: t("experienceDetails40List1") },
         { item: t("experienceDetails40List2") },
         { item: t("experienceDetails40List3") },
+        { item: t("experienceDetails40List4") },
       ],
     },
   ];

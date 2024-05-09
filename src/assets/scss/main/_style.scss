@@ -664,7 +664,7 @@ body.light .header ul.icon-menu li.icon-box:hover i {
 }
 
 .home .home-details > div {
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
 }
 
@@ -1378,7 +1378,7 @@ body.light .contact .custom-span-contact a {
 
 @media (min-width: 1600px) {
   .home .home-details > div {
-    max-width: 650px;
+    max-width: 700px;
     text-justify: inter-word;
   }
 }
@@ -1901,7 +1901,7 @@ button:focus {
 
 // bootstrap 5 customization
 .container {
-  max-width: 1200px;
+  max-width: 1300px;
 }
 .row > * {
   padding-left: 15px;
