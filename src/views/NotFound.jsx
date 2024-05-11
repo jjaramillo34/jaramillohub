@@ -23,7 +23,6 @@ const NotFound = () => {
 
   const items = React.Children.toArray(text1);
   const trail = useTrail(items.length, {
-    // set the trail animation for the text items to move in a certain way when the page is loaded left to right
     config: { mass: 5, tension: 2000, friction: 200 },
     opacity: open ? 1 : 0,
     x: open ? 0 : 20,
@@ -90,7 +89,6 @@ const NotFound = () => {
   });
 
   return (
-    // add the background image to the 404 page
     <div
       className="not-found"
       style={{
@@ -119,12 +117,10 @@ const NotFound = () => {
                   fontSize: "100px",
                   fontWeight: "700",
                   color: "#000",
-                  //textShadow: "2px 2px 0 #000",
+                  textShadow: "2px 2px 0 #000",
                 }}
                 rotate={styles.xRotate}
                 scale={styles.xScale}
-                // add extra properties to the animated component
-                // to make the text spin
                 transform={styles.xRotate.interpolate(
                   (rotate) => `rotate(${rotate}deg)`
                 )}
@@ -140,7 +136,7 @@ const NotFound = () => {
                   fontSize: "20px",
                   fontWeight: "400",
                   color: "#000",
-                  //textShadow: "2px 2px 0 #000",
+                  textShadow: "2px 2px 0 #000",
                 }}
               >
                 {t("notFoundMessage")}
@@ -162,7 +158,7 @@ const NotFound = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    //boxShadow: "2px 2px 0 #000",
+                    boxShadow: "2px 2px 0 #000",
                   }}
                 >
                   <animated.span
@@ -198,9 +194,7 @@ const NotFound = () => {
           </div>
         </div>
         <div style={{ height: "50px" }}></div>
-        // on click of the button, the text will be animated
         <div className="row">
-          // on click of the button, the text will be animated
           {trail.map(({ x, height, ...rest }, index) => (
             <a.div
               key={index}
@@ -214,9 +208,7 @@ const NotFound = () => {
                 alignItems: "center",
                 display: "flex",
                 justifyContent: "center",
-                // display the items horizontally
                 flexDirection: "row",
-                // uppercase the text
                 textTransform: "uppercase",
               }}
               transform={styles.xRotate.interpolate(

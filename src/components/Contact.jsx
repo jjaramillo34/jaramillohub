@@ -13,6 +13,10 @@ const Contact = () => {
   const form = useRef();
   const { t } = useTranslation();
 
+  console.log("emailjsService: ", emailjsService);
+  console.log("emailjsTemplate: ", emailjsTemplate);
+  console.log("emailjsUser: ", emailjsUser);
+
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
