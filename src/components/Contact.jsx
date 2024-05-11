@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 const emailjsService = process.env.EMAILJS_SERVICE_ID;
 const emailjsTemplate = process.env.EMAILJS_TEMPLATE_ID;
-const emailjsUser = process.env.EMAILJS_USER_KEY;
+const emailjsUser = process.env.EMAILJS_USER_ID;
 
 const Contact = () => {
   const form = useRef();
