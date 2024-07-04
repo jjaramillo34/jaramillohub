@@ -14,6 +14,7 @@ const Experience = () => {
         { item: t("experienceDetails10List2") },
         { item: t("experienceDetails10List3") },
         { item: t("experienceDetails10List4") },
+        { item: t("experienceDetails10List5") },
       ],
     },
     {
@@ -50,6 +51,19 @@ const Experience = () => {
         { item: t("experienceDetails40List2") },
         { item: t("experienceDetails40List3") },
         { item: t("experienceDetails40List4") },
+      ],
+    },
+    {
+      year: "01-2012 - 05-2012",
+      position: t("experiencePosition60"),
+      companyName: t("experienceCompanyName60"),
+      details: [
+        { item: t("experienceDetails60List0") },
+        { item: t("experienceDetails60List1") },
+        { item: t("experienceDetails60List2") },
+        { item: t("experienceDetails60List3") },
+        { item: t("experienceDetails60List4") },
+        { item: t("experienceDetails60List5") },
       ],
     },
   ];

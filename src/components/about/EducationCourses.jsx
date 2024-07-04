@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 import { useTranslation } from "react-i18next";
 
@@ -480,17 +481,33 @@ const EducationCourses = () => {
     },
   ];
 
-  // sort the courses by date and return the first 6
+  // Sort the courses by date and return the first 16
   CourseData.sort(
     (a, b) =>
       new Date(b.modalDetails[0].date) - new Date(a.modalDetails[0].date)
   );
-  CourseData.length = 16;
+  CourseData.length = 17;
+
+  const listRef = useRef([]);
+
+  useEffect(() => {
+    gsap.fromTo(
+      listRef.current,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+      }
+    );
+  }, []);
 
   return (
     <ul>
       {CourseData.map((val, i) => (
-        <li key={i}>
+        <li key={i} ref={(el) => (listRef.current[i] = el)}>
           <div className="icon">
             <i className="fa fa-briefcase"></i>
           </div>
@@ -513,13 +530,11 @@ const EducationCourses = () => {
             className="open-sans-font"
             style={{
               fontSize: "0.8rem",
-              // justify the text
               textAlign: "justify",
             }}
           >
             {val.modalDetails[0].description}
           </p>
-
           <div>
             {val.tag.map((tag, index) => (
               <span
@@ -541,19 +556,3 @@ const EducationCourses = () => {
 };
 
 export default EducationCourses;
-
-//{
-//  educationContent.map((val, i) => (
-//    <li key={i}>
-//      <div className="icon">
-//        <i className="fa fa-briefcase"></i>
-//      </div>
-//      <span className="time open-sans-font text-uppercase">{val.year}</span>
-//      <h5 className="poppins-font text-uppercase">
-//        {val.degree}
-//        <span className="place open-sans-font">{val.institute}</span>
-//      </h5>
-//      <p className="open-sans-font">{val.details}</p>
-//    </li>
-//  ));
-//}

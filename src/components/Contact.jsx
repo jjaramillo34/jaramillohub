@@ -13,22 +13,10 @@ const Contact = () => {
   const form = useRef();
   const { t } = useTranslation();
 
-  console.log("emailjsService: ", emailjsService);
-  console.log("emailjsTemplate: ", emailjsTemplate);
-  console.log("emailjsUser: ", emailjsUser);
-
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs
-      .sendForm(
-        // load the service ID from the environment variable
-        emailjsService,
-        // load the template ID from the environment variable
-        emailjsTemplate,
-        form.current,
-        // load the user ID from the environment variable
-        emailjsUser
-      )
+      .sendForm(emailjsService, emailjsTemplate, form.current, emailjsUser)
       .then(
         (result) => {
           toast.success("Message Sent Successfully!", {

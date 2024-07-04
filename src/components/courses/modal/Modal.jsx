@@ -5,16 +5,16 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function CourseModal({ modalId, setGetModal }) {
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    draggable: true,
+  };
   return (
-    <div
-      className="modal_portfolio "
-      style={{
-        display: "block",
-        // marginTop: "50px",
-        // marginLeft: "auto",
-        maxWidth: "100%",
-      }}
-    >
+    <div className="modal_portfolio ">
       <div className="modal__outside" onClick={() => setGetModal(false)}></div>
       <div></div>
       <div className="modal__content">
@@ -33,7 +33,7 @@ function CourseModal({ modalId, setGetModal }) {
                   src={item.image}
                   alt="portfolio project demo"
                   style={{
-                    maxWidth: "80%",
+                    maxWidth: "100%",
                     borderRadius: "10px",
                     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                   }}
@@ -53,7 +53,7 @@ function CourseModal({ modalId, setGetModal }) {
                           className="fa fa-file-text-o pr-2"
                           style={{ color: "#007bff" }}
                         ></i>
-                        <strong>Project:</strong>
+                        <strong>Project: </strong>
                         <span className="ft-wt-600 uppercase pl-1">
                           {details.project.length > 35
                             ? details.project.substring(0, 35) + "..."
@@ -65,7 +65,7 @@ function CourseModal({ modalId, setGetModal }) {
                           className="fa fa-user-o pr-2"
                           style={{ color: "#28a745" }}
                         ></i>
-                        <strong>Client:</strong>
+                        <strong>Client: </strong>
                         <span className="ft-wt-600 uppercase pl-1">
                           {details.client}
                         </span>
@@ -78,7 +78,7 @@ function CourseModal({ modalId, setGetModal }) {
                           className="fa fa-code pr-2"
                           style={{ color: "#17a2b8" }}
                         ></i>
-                        <strong>Language:</strong>
+                        <strong>Language: </strong>
                         <span className="ft-wt-600 uppercase pl-1">
                           {details.language}
                         </span>
@@ -88,7 +88,7 @@ function CourseModal({ modalId, setGetModal }) {
                           className="fa fa-external-link pr-2"
                           style={{ color: "#ffc107" }}
                         ></i>
-                        <strong>Preview:</strong>
+                        <strong>Preview: </strong>
                         <a
                           className="preview-link pl-1"
                           target="_blank"
@@ -106,7 +106,7 @@ function CourseModal({ modalId, setGetModal }) {
                           className="fa fa-cogs pr-2"
                           style={{ color: "#6f42c1" }}
                         ></i>
-                        <strong>Tech Stack:</strong>
+                        <strong>Tech Stack: </strong>
                         <img
                           src={details.techStack}
                           alt="tech stack"
@@ -122,7 +122,7 @@ function CourseModal({ modalId, setGetModal }) {
                           className="fa fa-calendar pr-2"
                           style={{ color: "#e83e8c" }}
                         ></i>
-                        <strong>Date:</strong>
+                        <strong>Date: </strong>
                         <span className="ft-wt-600 uppercase pl-1">
                           {details.date}
                         </span>

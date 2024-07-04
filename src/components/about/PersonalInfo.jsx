@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import gsap from "gsap";
 
 const PersonalInfo = () => {
   const { t } = useTranslation();
@@ -46,10 +47,31 @@ const PersonalInfo = () => {
     },
   ];
 
+  const listRef = useRef([]);
+
+  useEffect(() => {
+    gsap.fromTo(
+      listRef.current,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+      }
+    );
+  }, []);
+
   return (
     <ul className="about-list list-unstyled open-sans-font">
       {personalInfoContent.map((val, i) => (
-        <li key={i}>
+        <li
+          key={i}
+          ref={(el) => {
+            listRef.current[i] = el;
+          }}
+        >
           {val.meta === "Email" ? (
             <a href={`mailto:${val.metaInfo}`} className="text-secondary">
               {val.meta}: {val.metaInfo}
@@ -64,9 +86,6 @@ const PersonalInfo = () => {
           ) : (
             ""
           )}
-
-          {/* <span className="text-secondary">{val.meta}: </span>
-          {val.metaInfo} */}
         </li>
       ))}
     </ul>

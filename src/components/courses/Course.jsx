@@ -36,11 +36,13 @@ const Course = () => {
     const fetchData = async () => {
       const query = '*[_type == "course"]';
       const result = await client.fetch(query);
+      console.log("Result: ", result);
       setData(result);
     };
 
     fetchData();
-    console.log("Sanity data: ", data);
+    const sanityData = fetchData();
+    console.log("Sanity data: ", sanityData);
   }, []);
 
   return (

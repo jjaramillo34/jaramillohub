@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-//import animate from "https://cdn.jsdelivr.net/npm/animateplus@2/animateplus.js";
+import gsap from "gsap";
 
 const Achievements = () => {
   const { t } = useTranslation();
@@ -27,19 +27,26 @@ const Achievements = () => {
     },
   ];
 
-  //animate({
-  //  elements: ".box-stats",
-  //  duration: 2000,
-  //  delay: (index) => index * 100,
-  //  opacity: [0, 1],
-  //  translateY: [20, 0],
-  //  translateX: [20, 0],
-  //});
+  const boxRef = useRef([]);
+
+  useEffect(() => {
+    gsap.fromTo(
+      boxRef.current,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+      }
+    );
+  }, []);
 
   return (
     <div className="row">
       {achievementsContent.map((val, i) => (
-        <div className="col-6" key={i}>
+        <div className="col-6" key={i} ref={(el) => (boxRef.current[i] = el)}>
           <div className="box-stats with-margin">
             <h3 className="poppins-font position-relative">{val.title}</h3>
             <p className="open-sans-font m-0 position-relative text-uppercase">

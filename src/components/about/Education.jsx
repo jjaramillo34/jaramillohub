@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import gsap from "gsap";
 
 const Education = () => {
   const { t } = useTranslation();
@@ -18,18 +19,35 @@ const Education = () => {
       details: t("educationDetails20"),
       type: "education",
     },
-    //{
-    //  year: "2015 - 2015",
-    //  degree: t("educationDegree30"),
-    //  institute: t("educationInstitute30"),
-    //  details: t("educationDetails30"),
-    //  type: "course",
-    //},
+    // {
+    //   year: "2015 - 2015",
+    //   degree: t("educationDegree30"),
+    //   institute: t("educationInstitute30"),
+    //   details: t("educationDetails30"),
+    //   type: "course",
+    // },
   ];
+
+  const listRef = useRef([]);
+
+  useEffect(() => {
+    gsap.fromTo(
+      listRef.current,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+      }
+    );
+  }, []);
+
   return (
     <ul>
       {educationContent.map((val, i) => (
-        <li key={i}>
+        <li key={i} ref={(el) => (listRef.current[i] = el)}>
           <div className="icon">
             <i className="fa fa-briefcase"></i>
           </div>

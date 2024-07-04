@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Achievements from "./Achievements";
 import Education from "./Education";
 import EducationCourses from "./EducationCourses";
@@ -8,32 +9,53 @@ import PersonalInfo from "./PersonalInfo";
 import Skills from "./Skills";
 import cv from "../../assets/img/Javier Jaramillo resume.webp";
 import heroImgMobile from "../../assets/img/hero/img-mobile.jpg";
-import { useTranslation } from "react-i18next";
-//import animate from "https://cdn.jsdelivr.net/npm/animateplus@2/animateplus.js";
+import gsap from "gsap";
 
 const AboutPage = () => {
   const { t } = useTranslation();
+  const arrowRef = useRef();
+  const [showArrow, setShowArrow] = useState(false);
 
-  //animate({
-  //  elements: ".h3",
-  //  duration: 2000,
-  //  delay: (index) => index * 100,
-  //  transform: ["scale(0)", "scale(1)"],
-  //});
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowArrow(true);
+      } else {
+        setShowArrow(false);
+      }
+    };
 
-  // //animate({
-  //  elements: ".text-uppercase custom-title mb-0 ft-wt-600",
-  //  duration: 2000,
-  //  delay: (index) => index * 100,
-  //  opacity: [0, 1],
-  //});
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (showArrow) {
+      gsap.fromTo(
+        arrowRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+        }
+      );
+    }
+  }, [showArrow]);
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
-    <section className="main-content ">
+    <section className="main-content">
       <div className="container">
         <div className="row">
           {/* Personal Info Starts */}
-
           <div className="col-xl-6 col-lg-5 col-12">
             <div className="row">
               <div className="col-12">
@@ -42,7 +64,6 @@ const AboutPage = () => {
                 </h3>
               </div>
               {/* End .col */}
-
               <div className="col-12 d-block d-sm-none">
                 <img
                   src={heroImgMobile}
@@ -51,12 +72,10 @@ const AboutPage = () => {
                 />
               </div>
               {/* image for mobile menu */}
-
               <div className="col-12">
                 <PersonalInfo />
               </div>
               {/* End personal info */}
-
               <div className="col-12 mt-1">
                 <a className="button" href={cv} download>
                   <span className="button-text">{t("personalInfoButton")}</span>
@@ -66,18 +85,15 @@ const AboutPage = () => {
               {/* End download button */}
             </div>
           </div>
-          {/*  Personal Info Ends */}
-
-          {/*  Boxes Starts */}
+          {/* Personal Info Ends */}
+          {/* Achievements Starts */}
           <div className="col-xl-6 col-lg-7 col-12 mt-5 mt-lg-0">
             <Achievements />
           </div>
           {/* Achievements Ends */}
         </div>
         {/* End .row */}
-
         <hr className="separator" />
-
         {/* Skills Starts */}
         <div className="row">
           <div className="col-12">
@@ -88,9 +104,7 @@ const AboutPage = () => {
           <Skills />
         </div>
         {/* Skills Ends */}
-
         <hr className="separator mt-1" />
-
         {/* Experience & Education Starts */}
         <div className="row">
           <div className="col-12">
@@ -147,8 +161,31 @@ const AboutPage = () => {
             </div>
           </div>
         </div>
-        {/*  Experience & Education Ends */}
+        {/* Experience & Education Ends */}
       </div>
+      {showArrow && (
+        <button
+          ref={arrowRef}
+          onClick={handleScrollToTop}
+          style={{
+            position: "fixed",
+            bottom: "20px",
+            left: "20px",
+            backgroundColor: "#f0ad4e",
+            border: "none",
+            borderRadius: "50%",
+            width: "50px",
+            height: "50px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            cursor: "pointer",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+          }}
+        >
+          <i className="fa fa-arrow-up" style={{ color: "#fff" }}></i>
+        </button>
+      )}
     </section>
   );
 };
