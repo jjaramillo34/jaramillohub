@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const skillsContent = [
   {
@@ -117,43 +118,123 @@ const skillsContent = [
 ];
 
 const SkillsComponent = () => {
-  const elementsRef = useRef([]);
+  const categoriesRef = useRef([]);
+  const skillsRef = useRef([]);
 
   useEffect(() => {
-    AOS.init();
+    categoriesRef.current.forEach((category, index) => {
+      gsap.fromTo(
+        category,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          scrollTrigger: {
+            trigger: category,
+            start: "top 80%",
+          },
+        }
+      );
+    });
+
+    skillsRef.current.forEach((skill) => {
+      const percent = skill.dataset.percent;
+      const circle = skill.querySelector(".circle-progress");
+
+      gsap.fromTo(
+        circle,
+        { strokeDashoffset: 283 },
+        {
+          strokeDashoffset: 283 - (283 * percent) / 100,
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: skill,
+            start: "top 80%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        skill.querySelector(".percent-text"),
+        { textContent: "0%" },
+        {
+          textContent: `${percent}%`,
+          duration: 1.5,
+          ease: "power2.out",
+          snap: { textContent: 1 },
+          scrollTrigger: {
+            trigger: skill,
+            start: "top 80%",
+          },
+        }
+      );
+    });
   }, []);
 
   return (
-    <div className="row">
+    <div className="container mx-auto px-4">
       {skillsContent.map((category, index) => (
-        <React.Fragment key={index}>
-          <h3 className="col-12 text-center my-4">{category.title}</h3>
-          <div className="row">
+        <div
+          key={index}
+          ref={(el) => (categoriesRef.current[index] = el)}
+          className="mb-12"
+        >
+          <h4 className="text-2xl font-bold text-center my-6 text-[#FFB401] uppercase">
+            {category.title}
+          </h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
             {category.data
               .sort((a, b) => b.skillPercent - a.skillPercent)
-              .map((val, i) => (
+              .map((skill, i) => (
                 <div
-                  className="col-6 col-md-4 col-lg-2 mb-3 mb-sm-5"
                   key={i}
-                  data-aos="fade-up"
-                  data-aos-delay={`${i * 100}`}
-                  ref={(el) => (elementsRef.current[i] = el)}
-                  data-percent={val.skillPercent}
+                  ref={(el) => skillsRef.current.push(el)}
+                  data-percent={skill.skillPercent}
+                  className="flex flex-col items-center"
                 >
-                  <div className={`c100 p${val.skillPercent}`}>
-                    <span>{val.skillPercent}%</span>
-                    <div className="slice">
-                      <div className="bar"></div>
-                      <div className="fill"></div>
+                  <div className="relative w-24 h-24">
+                    <svg className="w-full h-full" viewBox="0 0 100 100">
+                      <circle
+                        className="text-gray-200"
+                        strokeWidth="8"
+                        stroke="currentColor"
+                        fill="transparent"
+                        r="45"
+                        cx="50"
+                        cy="50"
+                      />
+                      <circle
+                        className="circle-progress text-[#FFB401]"
+                        strokeWidth="8"
+                        strokeLinecap="round"
+                        stroke="currentColor"
+                        fill="transparent"
+                        r="45"
+                        cx="50"
+                        cy="50"
+                        style={{
+                          strokeDasharray: 283,
+                          strokeDashoffset: 283,
+                          transform: "rotate(-90deg)",
+                          transformOrigin: "50% 50%",
+                        }}
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="percent-text text-lg font-semibold">
+                        0%
+                      </span>
                     </div>
                   </div>
-                  <h6 className="text-uppercase open-sans-font text-center mt-2 mt-sm-4">
-                    {val.skillName}
+                  <h6 className="text-sm font-medium text-center mt-2">
+                    {skill.skillName}
                   </h6>
                 </div>
               ))}
           </div>
-        </React.Fragment>
+        </div>
       ))}
     </div>
   );

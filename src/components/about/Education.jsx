@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import gsap from "gsap";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Calendar, GraduationCap, Building } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Education = () => {
   const { t } = useTranslation();
@@ -19,61 +23,57 @@ const Education = () => {
       details: t("educationDetails20"),
       type: "education",
     },
-    // {
-    //   year: "2015 - 2015",
-    //   degree: t("educationDegree30"),
-    //   institute: t("educationInstitute30"),
-    //   details: t("educationDetails30"),
-    //   type: "course",
-    // },
   ];
 
   const listRef = useRef([]);
 
   useEffect(() => {
-    gsap.fromTo(
-      listRef.current,
-      { opacity: 0, y: 20 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power3.out",
-      }
-    );
+    listRef.current.forEach((item, index) => {
+      gsap.fromTo(
+        item,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+          },
+          delay: index * 0.2,
+        }
+      );
+    });
   }, []);
 
   return (
-    <ul>
+    <div className="space-y-8">
       {educationContent.map((val, i) => (
-        <li key={i} ref={(el) => (listRef.current[i] = el)}>
-          <div className="icon">
-            <i className="fa fa-briefcase"></i>
+        <div
+          key={i}
+          ref={(el) => (listRef.current[i] = el)}
+          className="border-l-4 border-[#FFB401] pl-4 py-2"
+        >
+          <div className="flex items-center text-gray-600 text-sm mb-2">
+            <Calendar className="w-4 h-4 mr-2 text-[#FFB401]" />
+            <span>{val.year}</span>
           </div>
-          <span className="time open-sans-font text-uppercase">{val.year}</span>
-          <h5
-            className="poppins-font text-uppercase"
-            style={{
-              fontSize: "0.9rem",
-              fontWeight: "600",
-            }}
-          >
+          <h3 className="text-lg font-bold text-[#FFB401] mb-1">
             {val.degree}
-            <span className="place open-sans-font">{val.institute}</span>
-          </h5>
-          <p
-            className="open-sans-font"
-            style={{
-              textAlign: "justify",
-              fontSize: "0.8rem",
-            }}
-          >
-            {val.details}
-          </p>
-        </li>
+          </h3>
+          <div className="flex items-center text-gray-700 text-sm mb-2">
+            <Building className="w-4 h-4 mr-2" />
+            <span>{val.institute}</span>
+          </div>
+          <p className="text-gray-600 text-sm leading-relaxed">{val.details}</p>
+          <div className="mt-2 flex items-center text-sm text-gray-500">
+            <GraduationCap className="w-4 h-4 mr-2 text-[#FFB401]" />
+            <span>{val.type}</span>
+          </div>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 };
 

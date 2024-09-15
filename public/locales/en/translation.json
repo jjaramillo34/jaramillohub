@@ -10,6 +10,8 @@
   "heroDescriptions": "Dynamic and innovative Data Analyst and Full Stack Developer known for optimizing operational workflows through strategic integration of Streamlit with Twilio API, enhancing communication channels and efficiency. Expert in leveraging Tableau, Power BI, and Qlik for insightful data visualization that drives informed decision-making and enhances data accuracy. Skilled in crafting compelling portfolio websites using React.js and Sanity.io, aimed at maximizing user engagement and accessibility. Proven ability to automate complex ETL processes using Python, NumPy, and Pandas, ensuring meticulous data management and maintaining high QA standards for software releases.",
   "heroBtn": "More about me",
   "educationTitle": "Education",
+  "personalInfoTitle": "Personal Information",
+  "achievementsTitle": "Achievements",
   "achievementsSubTitle10": "years of",
   "achievementsSubTitle11": "experience",
   "achievementsSubTitle20": "completed",
@@ -72,7 +74,6 @@
   "experienceDetails60List4": "Achieved 94.3% adherence to industry standards, regulatory requirements, and Cybersecurity best practices by conducting monthly security audits, risk assessments, and compliance reviews.",
   "experienceDetails60List5": "Strengthened security posture and compliance by implementing Access Control Lists (ACLs) and Identity Access Management (IAM) policies across multiple user accounts.",
   "experienceCompanyName60": "NYC Department of Education (DOE)",
-
   "personalInfoMeta1": "first name",
   "personalInfoMetaInfo1": "Javier",
   "personalInfoMeta2": "last name",

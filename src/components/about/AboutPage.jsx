@@ -58,11 +58,7 @@ const AboutPage = () => {
           {/* Personal Info Starts */}
           <div className="col-xl-6 col-lg-5 col-12">
             <div className="row">
-              <div className="col-12">
-                <h3 className="text-uppercase custom-title mb-0 ft-wt-600">
-                  {t("personalInfos")}
-                </h3>
-              </div>
+              <div className="col-12"></div>
               {/* End .col */}
               <div className="col-12 d-block d-sm-none">
                 <img

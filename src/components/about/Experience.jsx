@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Briefcase, Calendar, Building } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
   const { t } = useTranslation();
+  const experienceRef = useRef([]);
   const experienceContent = [
     {
       year: "06-2012 - Present",
@@ -68,44 +74,59 @@ const Experience = () => {
     },
   ];
 
+  useEffect(() => {
+    experienceRef.current.forEach((item, index) => {
+      gsap.fromTo(
+        item,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+          },
+          delay: index * 0.2,
+        }
+      );
+    });
+  }, []);
+
   return (
-    <ul>
+    <div className="space-y-8">
       {experienceContent.map((val, i) => (
-        <li key={i}>
-          <div className="icon">
-            <i className="fa fa-briefcase"></i>
+        <div
+          key={i}
+          ref={(el) => (experienceRef.current[i] = el)}
+          className="border-l-4 border-[#FFB401] pl-4 py-2"
+        >
+          <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm mb-2">
+            <Calendar className="w-4 h-4 mr-2 text-[#FFB401]" />
+            <span>{val.year}</span>
           </div>
-          <span className="time open-sans-font text-uppercase">{val.year}</span>
-          <h5
-            className="poppins-font text-uppercase"
-            style={{
-              fontSize: "0.9rem",
-              fontWeight: "600",
-            }}
-          >
+          <h3 className="text-lg font-bold text-[#FFB401] mb-1">
             {val.position}
-            <span className="place open-sans-font">{val.companyName}</span>
-          </h5>
-          <p className="open-sans-font">
+          </h3>
+          <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm mb-2">
+            <Building className="w-4 h-4 mr-2" />
+            <span>{val.companyName}</span>
+          </div>
+          <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400 text-sm">
             {val.details.map((detail, index) => (
-              // Assuming you want each detail in its own <span>; if not, adjust as necessary
-              // create a list with the details with a line break and with dots
-              <li
-                key={index}
-                style={{
-                  fontSize: "0.8rem",
-                  item: "inside",
-                  textAlign: "justify",
-                  marginLeft: "-1.30rem",
-                }}
-              >
+              <li key={index} className="leading-relaxed">
                 {detail.item}
               </li>
             ))}
-          </p>
-        </li>
+          </ul>
+          <div className="mt-2 flex items-center text-sm text-gray-500 dark:text-gray-400">
+            <Briefcase className="w-4 h-4 mr-2 text-[#FFB401]" />
+            <span>Experience</span>
+          </div>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 };
 

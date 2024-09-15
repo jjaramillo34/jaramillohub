@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-
 import { useTranslation } from "react-i18next";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { BookOpen, Calendar, Building } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const CourseData = [
   {
@@ -450,6 +453,7 @@ const CourseData = [
 
 const EducationCourses = () => {
   const { t } = useTranslation();
+  const courseRef = useRef([]);
   const educationContent = [
     {
       year: "2022 - 2022",
@@ -486,72 +490,69 @@ const EducationCourses = () => {
     (a, b) =>
       new Date(b.modalDetails[0].date) - new Date(a.modalDetails[0].date)
   );
-  CourseData.length = 17;
+  CourseData.length = 12;
 
   const listRef = useRef([]);
 
   useEffect(() => {
-    gsap.fromTo(
-      listRef.current,
-      { opacity: 0, y: 20 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power3.out",
-      }
-    );
+    courseRef.current.forEach((course, index) => {
+      gsap.fromTo(
+        course,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: course,
+            start: "top 90%",
+          },
+          delay: index * 0.1,
+        }
+      );
+    });
   }, []);
 
   return (
-    <ul>
-      {CourseData.map((val, i) => (
-        <li key={i} ref={(el) => (listRef.current[i] = el)}>
-          <div className="icon">
-            <i className="fa fa-briefcase"></i>
+    <div className="space-y-8">
+      {CourseData.map((course, i) => (
+        <div
+          key={i}
+          ref={(el) => (courseRef.current[i] = el)}
+          className="border-l-4 border-[#FFB401] pl-4 py-2"
+        >
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+            <h3 className="text-lg font-bold text-[#FFB401]">{course.type}</h3>
+            <div className="flex items-center text-gray-600 text-sm mt-1 md:mt-0">
+              <Calendar className="w-4 h-4 mr-2" />
+              <span>{course.modalDetails[0].date}</span>
+            </div>
           </div>
-          <span className="time open-sans-font text-uppercase">
-            {val.modalDetails[0].date}
-          </span>
-          <h5
-            className="poppins-font text-uppercase"
-            style={{
-              fontSize: "0.9rem",
-              fontWeight: "600",
-            }}
-          >
-            {val.type}
-            <span className="place open-sans-font">
-              {val.modalDetails[0].client}
-            </span>
-          </h5>
-          <p
-            className="open-sans-font"
-            style={{
-              fontSize: "0.8rem",
-              textAlign: "justify",
-            }}
-          >
-            {val.modalDetails[0].description}
+          <div className="flex items-center mb-2 text-gray-700 text-sm">
+            <Building className="w-4 h-4 mr-2" />
+            <span>{course.modalDetails[0].client}</span>
+          </div>
+          <p className="text-gray-600 mb-3 text-sm">
+            {course.modalDetails[0].description}
           </p>
-          <div>
-            {val.tag.map((tag, index) => (
+          <div className="flex flex-wrap gap-2 mb-2">
+            {course.tag.map((tag, index) => (
               <span
                 key={index}
-                className="badge badge-pill badge-secondary"
-                style={{
-                  margin: "0.1rem",
-                  backgroundColor: "#f0ad4e",
-                }}
+                className="px-2 py-1 bg-gray-200 text-gray-700 text-xs font-semibold rounded-full"
               >
                 {tag}
               </span>
             ))}
           </div>
-        </li>
+          <div className="flex items-center text-sm text-gray-600">
+            <BookOpen className="w-4 h-4 mr-2 text-[#FFB401]" />
+            <span>{course.modalDetails[0].language}</span>
+          </div>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 };
 
