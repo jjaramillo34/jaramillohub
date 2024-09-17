@@ -1,174 +1,134 @@
 import React from "react";
-import CloseImg from "../../../assets/img/cancel.svg";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  X,
+  FileText,
+  User,
+  Code,
+  ExternalLink,
+  Cog,
+  Calendar,
+} from "lucide-react";
 import CourseData from "../courseData";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
-function CourseModal({ modalId, setGetModal }) {
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    draggable: true,
+const CourseModal = ({ modalId, setGetModal }) => {
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.3 } },
   };
+
   return (
-    <div className="modal_portfolio ">
-      <div className="modal__outside" onClick={() => setGetModal(false)}></div>
-      <div></div>
-      <div className="modal__content">
-        {CourseData.filter((item) => item.id === modalId).map((item) => {
-          return (
-            <div key={item.id} data-aos="fade">
-              {/* Title */}
-              <h2 className="heading mb-4 text-center">{item.type}</h2>
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <motion.div
+          className="relative w-full max-w-6xl bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden border-4 border-[#FFB401] dark:border-[#FFD980]"
+          variants={modalVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+        >
+          {CourseData.filter((item) => item.id === modalId).map((item) => (
+            <div key={item.id} className="p-4 sm:p-6 md:p-8">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center text-[#FFB401] dark:text-[#FFD980] mb-4 sm:mb-6 md:mb-8">
+                {item.type}
+              </h2>
 
-              {/* Image */}
-              <figure
-                className="modal__img mb-4"
-                style={{ textAlign: "center" }}
-              >
-                <img
-                  src={item.image}
-                  alt="portfolio project demo"
-                  style={{
-                    maxWidth: "100%",
-                    borderRadius: "10px",
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  }}
-                />
-              </figure>
+              <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6 md:mb-8">
+                <figure className="lg:w-1/2">
+                  <img
+                    src={item.image}
+                    alt={item.type}
+                    className="w-full h-auto rounded-lg shadow-md object-cover"
+                  />
+                </figure>
+                <div className="lg:w-1/2 space-y-4 sm:space-y-6">
+                  {item.modalDetails.map((details, index) => (
+                    <div
+                      key={index}
+                      className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 sm:p-6"
+                    >
+                      <p className="text-gray-700 dark:text-gray-300 mb-4">
+                        {details.description}
+                      </p>
 
-              {/* Details */}
-              <div className="modal__details">
-                {item.modalDetails.map((details, index) => (
-                  <div key={index} className="modal-details-container mb-3">
-                    <div className="modal-description mt-3">
-                      <p>{details.description}</p>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6 mb-2">
-                        <i
-                          className="fa fa-file-text-o pr-2"
-                          style={{ color: "#007bff" }}
-                        ></i>
-                        <strong>Project: </strong>
-                        <span className="ft-wt-600 uppercase pl-1">
-                          {details.project.length > 35
-                            ? details.project.substring(0, 35) + "..."
-                            : details.project}
-                        </span>
-                      </div>
-                      <div className="col-md-6 mb-2">
-                        <i
-                          className="fa fa-user-o pr-2"
-                          style={{ color: "#28a745" }}
-                        ></i>
-                        <strong>Client: </strong>
-                        <span className="ft-wt-600 uppercase pl-1">
-                          {details.client}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-md-6 mb-2">
-                        <i
-                          className="fa fa-code pr-2"
-                          style={{ color: "#17a2b8" }}
-                        ></i>
-                        <strong>Language: </strong>
-                        <span className="ft-wt-600 uppercase pl-1">
-                          {details.language}
-                        </span>
-                      </div>
-                      <div className="col-md-6 mb-2">
-                        <i
-                          className="fa fa-external-link pr-2"
-                          style={{ color: "#ffc107" }}
-                        ></i>
-                        <strong>Preview: </strong>
-                        <a
-                          className="preview-link pl-1"
-                          target="_blank"
-                          rel="noopener noreferrer nofollow"
-                          href={details.link}
-                        >
-                          Click here
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-md-6 mb-2">
-                        <i
-                          className="fa fa-cogs pr-2"
-                          style={{ color: "#6f42c1" }}
-                        ></i>
-                        <strong>Tech Stack: </strong>
-                        <img
-                          src={details.techStack}
-                          alt="tech stack"
-                          style={{
-                            height: "20px",
-                            verticalAlign: "middle",
-                            marginLeft: "8px",
-                          }}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <DetailItem
+                          icon={<FileText className="text-blue-500" />}
+                          label="Project"
+                          value={details.project}
+                        />
+                        <DetailItem
+                          icon={<User className="text-green-500" />}
+                          label="Client"
+                          value={details.client}
+                        />
+                        <DetailItem
+                          icon={<Code className="text-indigo-500" />}
+                          label="Language"
+                          value={details.language}
+                        />
+                        <DetailItem
+                          icon={<ExternalLink className="text-yellow-500" />}
+                          label="Preview"
+                          value={
+                            <a
+                              className="text-[#FFB401] hover:underline"
+                              target="_blank"
+                              rel="noopener noreferrer nofollow"
+                              href={details.link}
+                            >
+                              Click here
+                            </a>
+                          }
+                        />
+                        <DetailItem
+                          icon={<Cog className="text-purple-500" />}
+                          label="Tech Stack"
+                          value={
+                            <img
+                              src={details.techStack}
+                              alt="tech stack"
+                              className="h-5 ml-2 inline-block"
+                            />
+                          }
+                        />
+                        <DetailItem
+                          icon={<Calendar className="text-pink-500" />}
+                          label="Date"
+                          value={details.date}
                         />
                       </div>
-                      <div className="col-md-6 mb-2">
-                        <i
-                          className="fa fa-calendar pr-2"
-                          style={{ color: "#e83e8c" }}
-                        ></i>
-                        <strong>Date: </strong>
-                        <span className="ft-wt-600 uppercase pl-1">
-                          {details.date}
-                        </span>
-                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
 
-              {/* Close Button */}
               <button
-                className="close-modal"
+                className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 bg-white dark:bg-gray-800 rounded-full p-1"
                 onClick={() => setGetModal(false)}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  cursor: "pointer",
-                  margin: "0 auto",
-                  display: "block",
-                }}
               >
-                <img
-                  src={CloseImg}
-                  alt="Close modal"
-                  style={{ width: "24px", height: "24px" }}
-                />
+                <X size={24} />
               </button>
             </div>
-          );
-        })}
-      </div>
-    </div>
+          ))}
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
-}
-
-const Modal = ({ modalId, setGetModal }) => {
-  //var settings = {
-  //  dots: true,
-  //  infinite: true,
-  //  speed: 500,
-  //  slidesToShow: 1,
-  //  slidesToScroll: 1,
-  //  draggable: true,
-  //};
-  // called the function
-  return CourseModal({ modalId, setGetModal });
 };
 
-export default Modal;
+const DetailItem = ({ icon, label, value }) => (
+  <div className="flex items-center space-x-2 text-sm sm:text-base">
+    {icon}
+    <span className="font-semibold">{label}:</span>
+    <span className="text-gray-600 dark:text-gray-300">{value}</span>
+  </div>
+);
+
+export default CourseModal;

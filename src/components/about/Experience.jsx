@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
   const { t } = useTranslation();
-  const experienceRef = useRef([]);
   const experienceContent = [
     {
       year: "06-2012 - Present",
@@ -22,6 +21,7 @@ const Experience = () => {
         { item: t("experienceDetails10List4") },
         { item: t("experienceDetails10List5") },
       ],
+      type: "experience",
     },
     {
       year: "10-2020 - 04-2022",
@@ -34,6 +34,8 @@ const Experience = () => {
         { item: t("experienceDetails20List3") },
         { item: t("experienceDetails20List4") },
       ],
+
+      type: "experience",
     },
     {
       year: "06-2019 - 11-2019",
@@ -46,6 +48,7 @@ const Experience = () => {
         { item: t("experienceDetails30List3") },
         { item: t("experienceDetails30List4") },
       ],
+      type: "experience",
     },
     {
       year: "12-2012 - 03-2019",
@@ -58,6 +61,8 @@ const Experience = () => {
         { item: t("experienceDetails40List3") },
         { item: t("experienceDetails40List4") },
       ],
+
+      type: "experience",
     },
     {
       year: "01-2012 - 05-2012",
@@ -71,11 +76,15 @@ const Experience = () => {
         { item: t("experienceDetails60List4") },
         { item: t("experienceDetails60List5") },
       ],
+
+      type: "experience",
     },
   ];
 
+  const listRef = useRef([]);
+
   useEffect(() => {
-    experienceRef.current.forEach((item, index) => {
+    listRef.current.forEach((item, index) => {
       gsap.fromTo(
         item,
         { opacity: 0, y: 20 },
@@ -99,30 +108,33 @@ const Experience = () => {
       {experienceContent.map((val, i) => (
         <div
           key={i}
-          ref={(el) => (experienceRef.current[i] = el)}
+          ref={(el) => (listRef.current[i] = el)}
           className="border-l-4 border-[#FFB401] pl-4 py-2"
         >
-          <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm mb-2">
+          <div className="flex items-center text-gray-800 dark:text-white text-sm mb-2">
             <Calendar className="w-4 h-4 mr-2 text-[#FFB401]" />
             <span>{val.year}</span>
           </div>
           <h3 className="text-lg font-bold text-[#FFB401] mb-1">
             {val.position}
           </h3>
-          <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm mb-2">
+          <div className="flex items-center text-gray-800 dark:text-white text-sm mb-2">
             <Building className="w-4 h-4 mr-2" />
             <span>{val.companyName}</span>
           </div>
-          <ul className="list-disc list-inside space-y-1 text-gray-600 dark:text-gray-400 text-sm">
+          <p className="text-black dark:text-gray-100 text-sm">
             {val.details.map((detail, index) => (
-              <li key={index} className="leading-relaxed">
+              <li
+                key={index}
+                className="mb-2 text-black dark:text-white text-sm leading-relaxed"
+              >
                 {detail.item}
               </li>
             ))}
-          </ul>
-          <div className="mt-2 flex items-center text-sm text-gray-500 dark:text-gray-400">
+          </p>
+          <div className="mt-2 flex items-center text-sm text-gray-800 dark:text-white">
             <Briefcase className="w-4 h-4 mr-2 text-[#FFB401]" />
-            <span>Experience</span>
+            <span>{val.type}</span>
           </div>
         </div>
       ))}

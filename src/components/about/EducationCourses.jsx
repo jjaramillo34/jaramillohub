@@ -490,7 +490,7 @@ const EducationCourses = () => {
     (a, b) =>
       new Date(b.modalDetails[0].date) - new Date(a.modalDetails[0].date)
   );
-  CourseData.length = 12;
+  CourseData.length = 15;
 
   const listRef = useRef([]);
 
