@@ -7,6 +7,8 @@ import GitHub from "./GitHub";
 import Experience from "./Experience";
 import PersonalInfo from "./PersonalInfo";
 import Skills from "./Skills";
+import TechProjects from "./TechProjects";
+import Certifications from "./Certifications";
 import cv from "../../assets/img/Javier Jaramillo resume.webp";
 import heroImgMobile from "../../assets/img/hero/img-mobile.jpg";
 import gsap from "gsap";
@@ -123,6 +125,30 @@ const AboutPage = () => {
                 {t("experienceTitle")}
               </h4>
               <Experience />
+              <h4
+                className="text-uppercase custom-title ft-wt-600"
+                style={{
+                  marginTop: "20px",
+                  textAlign: "center",
+                }}
+                id="techProjects"
+                name="techProjects"
+              >
+                {t("techProjectsTitle")}
+              </h4>
+              <TechProjects />
+              <h4
+                className="text-uppercase custom-title ft-wt-600"
+                style={{
+                  marginTop: "20px",
+                  textAlign: "center",
+                }}
+                id="github"
+                name="github"
+              >
+                {t("githubTitle")}
+              </h4>
+
               <GitHub />
             </div>
           </div>
@@ -140,6 +166,18 @@ const AboutPage = () => {
                 {t("educationTitle")}
               </h4>
               <Education />
+              <h4
+                className="text-uppercase custom-title ft-wt-600"
+                style={{
+                  marginTop: "20px",
+                  textAlign: "center",
+                }}
+                id="certifications"
+                name="certifications"
+              >
+                {t("certificationsTitle")}
+              </h4>
+              <Certifications />
             </div>
             <div className="resume-box">
               <h4

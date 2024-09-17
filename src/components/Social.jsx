@@ -1,44 +1,50 @@
 import React from "react";
-//import animate from "animateplus";
+import { motion } from "framer-motion";
+import { Facebook, Twitter, Linkedin, Github } from "lucide-react";
 
 const SocialShare = [
   {
-    iconName: "fa fa-facebook",
+    icon: <Facebook />,
     link: "https://www.facebook.com/javier.jaramillo3/",
+    name: "Facebook",
   },
   {
-    iconName: "fa fa-twitter",
+    icon: <Twitter />,
     link: "https://twitter.com/jejaramilloc",
+    name: "Twitter",
   },
   {
-    iconName: "fa fa-linkedin",
+    icon: <Linkedin />,
     link: "https://www.linkedin.com/in/javierjaramillo1/",
+    name: "LinkedIn",
   },
   {
-    iconName: "fa fa-github",
+    icon: <Github />,
     link: "https://github.com/jjaramillo34/",
+    name: "GitHub",
   },
 ];
 
 const Social = () => {
-  //animate({
-  //  elements: ".social",
-  //  duration: 2000,
-  //  defaultEasing: "easeInOutQuad",
-  //  delay: 1000,
-  //  opacity: [0, 1],
-  //  translateY: [20, 0],
-  //  translateX: [20, 0],
-  //});
-
   return (
-    <ul className="social list-unstyled pt-1 mb-5">
+    <ul className="flex space-x-4 pt-4 mb-5">
       {SocialShare.map((val, i) => (
-        <li key={i}>
-          <a href={val.link} target="_blank" rel="noreferrer">
-            <i className={val.iconName}></i>
+        <motion.li
+          key={i}
+          initial={{ opacity: 0, y: 20, x: 20 }}
+          animate={{ opacity: 1, y: 0, x: 0 }}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+        >
+          <a
+            href={val.link}
+            target="_blank"
+            rel="noreferrer"
+            className="block p-2 text-gray-600 hover:text-[#ffb401] transition-colors duration-300 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+            aria-label={val.name}
+          >
+            {React.cloneElement(val.icon, { size: 24, strokeWidth: 1.5 })}
           </a>
-        </li>
+        </motion.li>
       ))}
     </ul>
   );

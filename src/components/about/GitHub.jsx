@@ -47,12 +47,6 @@ const GitHub = () => {
 
   return (
     <div ref={componentRef} className="py-12 px-4 md:px-0">
-      <h2
-        ref={titleRef}
-        className="text-3xl font-bold text-center text-[#FFB401] mb-10 uppercase"
-      >
-        GitHub Contributions
-      </h2>
       <div className="space-y-12 max-w-4xl mx-auto">
         <div
           ref={stat1Ref}

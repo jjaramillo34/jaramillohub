@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { ArrowUp } from "lucide-react";
 
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Top: 0 takes us all the way back to the top of the page
-  // Behavior: smooth keeps it smooth!
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -13,13 +12,8 @@ export default function ScrollToTop() {
   };
 
   useEffect(() => {
-    // Button is displayed after scrolling for 500 pixels
     const toggleVisibility = () => {
-      if (window.pageYOffset > 500) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(window.pageYOffset > 500);
     };
 
     window.addEventListener("scroll", toggleVisibility);
@@ -30,14 +24,13 @@ export default function ScrollToTop() {
   return (
     <>
       {isVisible && (
-        <div
+        <button
           onClick={scrollToTop}
-          className="scroll_up my_totop"
-          data-aos="fade-left"
-          data-aos-duration="1200"
+          className="fixed bottom-5 right-5 p-2 rounded-full bg-blue-500 text-white shadow-lg transition-opacity duration-300 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          aria-label="Scroll to top"
         >
-          <span className="beny_tm_totop"></span>
-        </div>
+          <ArrowUp className="w-6 h-6" />
+        </button>
       )}
     </>
   );

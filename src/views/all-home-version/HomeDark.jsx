@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, X, Sun, Moon } from "lucide-react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import {
   Home,
@@ -76,7 +77,7 @@ export default function HomeDark() {
   };
 
   return (
-    <div className="yellow">
+    <div>
       <div className="lang-switcher">
         <motion.div
           className="lang-switcher__toggle"
@@ -91,7 +92,7 @@ export default function HomeDark() {
             <img
               src={isEnglish ? enflag : esflag}
               alt={isEnglish ? "English" : "Español"}
-              className="w-12 h-10"
+              className="w-12 h-11"
             />
           </button>
         </motion.div>
@@ -118,14 +119,7 @@ export default function HomeDark() {
 
         <div className="tab-panel_list">
           <TabPanel className="home">
-            <div
-              className="container-fluid main-container container-home p-0"
-              data-aos="fade-up"
-              data-aos-duration="1200"
-            >
-              <div className="color-block d-none d-lg-block"></div>
-              <Hero />
-            </div>
+            <Hero />
           </TabPanel>
 
           <TabPanel className="about">
