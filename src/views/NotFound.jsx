@@ -1,225 +1,135 @@
-import React, { useState, CSSProperties, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import image404 from "../assets/img/404.jpg";
 import { useTranslation } from "react-i18next";
-import useMeasure from "react-use-measure";
-import { useSpring, animated, useTrail, a } from "@react-spring/web";
-import { useDrag } from "@use-gesture/react";
-import { useLocation } from "react-router-dom";
+import gsap from "gsap";
+import { TextPlugin } from "gsap/TextPlugin";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+
+gsap.registerPlugin(TextPlugin, MotionPathPlugin);
 
 const NotFound = () => {
   const { t } = useTranslation();
-  const [ref, { width, height }] = useMeasure();
-  const [{ x, y }, set] = useState({ x: 0, y: 0 });
-  const [{ xDelta, yDelta }, setDelta] = useState({ xDelta: 0, yDelta: 0 });
-  const [{ xDir, yDir }, setDir] = useState({ xDir: 0, yDir: 0 });
-  const [open, setOpen] = useState(true);
+  const containerRef = useRef(null);
+  const errorTextRef = useRef(null);
+  const messageRef = useRef(null);
+  const buttonRef = useRef(null);
+  const particlesRef = useRef(null);
 
-  const text1 = [
-    "The requested URL was not found on this server.",
-    "That’s all we know.",
-    "404",
-  ];
+  useEffect(() => {
+    const container = containerRef.current;
+    const errorText = errorTextRef.current;
 
-  const items = React.Children.toArray(text1);
-  const trail = useTrail(items.length, {
-    config: { mass: 5, tension: 2000, friction: 200 },
-    opacity: open ? 1 : 0,
-    x: open ? 0 : 20,
-    height: open ? 80 : 0,
-    from: { opacity: 0, x: 20, height: 0 },
-  });
+    // Create 3D text elements
+    const text = "404 ERROR";
+    text.split("").forEach((char, index) => {
+      const span = document.createElement("span");
+      span.textContent = char;
+      span.style.display = "inline-block";
+      span.style.position = "relative";
+      errorText.appendChild(span);
 
-  const bind = useDrag(
-    ({
-      offset: [x, y],
-      delta: [xDelta, yDelta],
-      direction: [xDir, yDir],
-      velocity,
-      down,
-    }) => {
-      set({ x, y });
-      setDelta({ xDelta, yDelta });
-      setDir({ xDir, yDir });
+      gsap.set(span, {
+        rotationY: -180,
+        opacity: 0,
+        z: -500,
+      });
+
+      gsap.to(span, {
+        duration: 1.5,
+        rotationY: 0,
+        opacity: 1,
+        z: 0,
+        ease: "back.out(1.7)",
+        delay: index * 0.1,
+      });
+    });
+
+    // Continuous rotation animation
+    gsap.to(errorText, {
+      rotationY: 360,
+      duration: 20,
+      repeat: -1,
+      ease: "none",
+    });
+
+    // Mouse move effect
+    container.addEventListener("mousemove", (e) => {
+      const { clientX, clientY } = e;
+      const { left, top, width, height } = container.getBoundingClientRect();
+      const x = (clientX - left) / width - 0.5;
+      const y = (clientY - top) / height - 0.5;
+
+      gsap.to(errorText, {
+        rotationY: x * 20,
+        rotationX: -y * 20,
+        duration: 0.5,
+      });
+    });
+
+    // Create particles
+    const particlesContainer = particlesRef.current;
+    for (let i = 0; i < 100; i++) {
+      const particle = document.createElement("div");
+      particle.className = "absolute w-1 h-1 bg-white rounded-full";
+      particlesContainer.appendChild(particle);
+
+      gsap.set(particle, {
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        scale: Math.random() * 0.5 + 0.5,
+      });
+
+      gsap.to(particle, {
+        duration: 10 + Math.random() * 20,
+        x: "+=" + (Math.random() * 1000 - 500),
+        y: "+=" + (Math.random() * 1000 - 500),
+        repeat: -1,
+        yoyo: true,
+        ease: "none",
+      });
     }
-  );
 
-  const styles = useSpring({
-    x: x,
-    y: y,
-    xDelta: xDelta,
-    yDelta: yDelta,
-    xDir: xDir,
-    yDir: yDir,
-    xSize: width,
-    ySize: height,
-    xScale: 1,
-    yScale: 1,
-    xRotate: 0,
-    yRotate: 0,
-    xOpacity: 1,
-    yOpacity: 1,
-    xShadow: 0,
-    yShadow: 0,
-    xBorder: 0,
-    yBorder: 0,
-    xColor: 0,
-    yColor: 0,
-    config: { mass: 1, tension: 170, friction: 26 },
-  });
+    // Animate the message
+    gsap.to(messageRef.current, {
+      duration: 2,
+      text: t("notFoundMessage"),
+      ease: "none",
+      delay: 1.5,
+    });
 
-  useEffect(() => {
-    const handleResize = () => {
-      styles.xSize.set(width);
-      styles.ySize.set(height);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [width, height, styles.xSize, styles.ySize]);
-
-  useEffect(() => {
-    styles.xScale.set(width / 100);
-    styles.yScale.set(height / 100);
-  }, [width, height, styles.xScale, styles.yScale]);
-
-  useMeasure(() => {
-    styles.xRotate.set(360);
-    styles.yRotate.set(360);
-  });
+    // Animate the button
+    gsap.from(buttonRef.current, {
+      duration: 0.5,
+      y: 50,
+      opacity: 0,
+      ease: "power3.out",
+      delay: 3,
+    });
+  }, [t]);
 
   return (
     <div
-      className="not-found"
-      style={{
-        backgroundImage: `url(${image404})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
-      }}
+      ref={containerRef}
+      className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#FFB401] to-[#FF9000] flex items-center justify-center p-4 perspective-1000"
     >
       <div
-        className="container"
-        ref={ref}
-        {...bind()}
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-      >
-        <div className="row">
-          <div className="col-12">
-            <div className="not-found-content text-center">
-              <animated.h1
-                style={{
-                  fontSize: "100px",
-                  fontWeight: "700",
-                  color: "#000",
-                  textShadow: "2px 2px 0 #000",
-                }}
-                rotate={styles.xRotate}
-                scale={styles.xScale}
-                transform={styles.xRotate.interpolate(
-                  (rotate) => `rotate(${rotate}deg)`
-                )}
-                transform-origin="center"
-                //text-shadow="2px 2px 0 #000"
-                opacity={styles.xOpacity}
-                shadow={styles.xShadow}
-              >
-                {t("404Error")}
-              </animated.h1>
-              <animated.p
-                style={{
-                  fontSize: "20px",
-                  fontWeight: "400",
-                  color: "#000",
-                  textShadow: "2px 2px 0 #000",
-                }}
-              >
-                {t("notFoundMessage")}
-              </animated.p>
-              <animated.div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginTop: "40px",
-                }}
-              >
-                <animated.div
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    borderRadius: "50%",
-                    background: "#000",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    boxShadow: "2px 2px 0 #000",
-                  }}
-                >
-                  <animated.span
-                    style={{
-                      fontSize: "20px",
-                      fontWeight: "400",
-                      color: "#fff",
-                      fontFamily: "Poppins, sans-serif",
-                      //textShadow: "2px 2px 0 #fff",
-                    }}
-                  >
-                    {t("404")}
-                  </animated.span>
-                </animated.div>
-              </animated.div>
-            </div>
-            <div style={{ height: "50px" }}></div>
-            <div className="not-found-button text-center">
-              <Link to="/" className="button">
-                <span
-                  className="button-text"
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-                    fontWeight: "600",
-                  }}
-                >
-                  {t("notFoundButton")}
-                </span>
-                <span className="button-icon fa fa-home"></span>
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div style={{ height: "50px" }}></div>
-        <div className="row">
-          {trail.map(({ x, height, ...rest }, index) => (
-            <a.div
-              key={index}
-              className="trails-text"
-              style={{
-                ...rest,
-                transform: x.to((x) => `translate3d(0,${x}px,0)`),
-                color: "#000",
-                fontSize: "26px",
-                fontWeight: "400",
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "row",
-                textTransform: "uppercase",
-              }}
-              transform={styles.xRotate.interpolate(
-                (rotate) => `rotate(${rotate}deg)`
-              )}
-              transform-origin="center"
-            >
-              <a.div style={{ height }}>{items[index]}</a.div>
-            </a.div>
-          ))}
-        </div>
+        ref={particlesRef}
+        className="absolute inset-0 pointer-events-none"
+      ></div>
+      <div className="relative text-center z-10">
+        <h1
+          ref={errorTextRef}
+          className="text-9xl font-bold text-white mb-8 shadow-lg inline-block"
+          style={{ transformStyle: "preserve-3d" }}
+        ></h1>
+        <p ref={messageRef} className="text-3xl text-white mb-12 shadow-md"></p>
+        <Link
+          to="/"
+          ref={buttonRef}
+          className="inline-block bg-white text-[#FFB401] font-bold py-4 px-10 rounded-full shadow-lg hover:bg-[#FFB401] hover:text-white transition duration-300 text-xl transform hover:scale-110"
+        >
+          {t("notFoundButton")}
+        </Link>
       </div>
     </div>
   );

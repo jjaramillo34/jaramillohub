@@ -2,6 +2,7 @@ import React from "react";
 import Preview from "../views/Preview";
 import HomeDark from "../views/all-home-version/HomeDark";
 import HomeRtl from "../views/all-home-version/HomeRtl";
+import HomeDarkAlternative from "../views/all-home-version/HomeDarkAlternative";
 import NotFound from "../views/NotFound";
 import { Routes, Route } from "react-router-dom";
 import ContextProvider from "../Context/ContextProvider";
@@ -13,9 +14,10 @@ const AllRoutes = () => {
       <ContextProvider>
         <ScrollTopBehaviour />
         <Routes>
-          <Route path="/preview" element={<Preview />} />
-          <Route path="/" element={<HomeDark />} />
+          <Route path="/" element={<Preview />} />
+          <Route path="/home" element={<HomeDark />} />
           <Route path="/home-rtl" element={<HomeRtl />} />
+          <Route path="/test" element={<HomeDarkAlternative />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ContextProvider>

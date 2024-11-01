@@ -21,20 +21,23 @@ const CourseModal = ({ modalId, setGetModal }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 overflow-y-auto"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className="relative w-full max-w-6xl bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden border-4 border-[#FFB401] dark:border-[#FFD980]"
+          className="relative w-full max-w-6xl bg-white dark:bg-gray-800 rounded-3xl shadow-xl border-4 border-[#FFB401] dark:border-[#FFD980] my-8"
           variants={modalVariants}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
           {CourseData.filter((item) => item.id === modalId).map((item) => (
-            <div key={item.id} className="p-4 sm:p-6 md:p-8">
+            <div
+              key={item.id}
+              className="p-4 sm:p-6 md:p-8 max-h-[90vh] overflow-y-auto"
+            >
               <h2 className="text-2xl sm:text-3xl font-bold text-center text-[#FFB401] dark:text-[#FFD980] mb-4 sm:mb-6 md:mb-8">
                 {item.type}
               </h2>
@@ -57,52 +60,57 @@ const CourseModal = ({ modalId, setGetModal }) => {
                         {details.description}
                       </p>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 gap-4">
                         <DetailItem
-                          icon={<FileText className="text-blue-500" />}
+                          icon={
+                            <FileText className="text-blue-500 flex-shrink-0" />
+                          }
                           label="Project"
                           value={details.project}
+                          fullWidth
                         />
-                        <DetailItem
-                          icon={<User className="text-green-500" />}
-                          label="Client"
-                          value={details.client}
-                        />
-                        <DetailItem
-                          icon={<Code className="text-indigo-500" />}
-                          label="Language"
-                          value={details.language}
-                        />
-                        <DetailItem
-                          icon={<ExternalLink className="text-yellow-500" />}
-                          label="Preview"
-                          value={
-                            <a
-                              className="text-[#FFB401] hover:underline"
-                              target="_blank"
-                              rel="noopener noreferrer nofollow"
-                              href={details.link}
-                            >
-                              Click here
-                            </a>
-                          }
-                        />
-                        <DetailItem
-                          icon={<Cog className="text-purple-500" />}
-                          label="Tech Stack"
-                          value={
-                            <img
-                              src={details.techStack}
-                              alt="tech stack"
-                              className="h-5 ml-2 inline-block"
-                            />
-                          }
-                        />
-                        <DetailItem
-                          icon={<Calendar className="text-pink-500" />}
-                          label="Date"
-                          value={details.date}
-                        />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <DetailItem
+                            icon={<User className="text-green-500" />}
+                            label="Client"
+                            value={details.client}
+                          />
+                          <DetailItem
+                            icon={<Code className="text-indigo-500" />}
+                            label="Language"
+                            value={details.language}
+                          />
+                          <DetailItem
+                            icon={<ExternalLink className="text-yellow-500" />}
+                            label="Preview"
+                            value={
+                              <a
+                                className="text-[#FFB401] hover:underline"
+                                target="_blank"
+                                rel="noopener noreferrer nofollow"
+                                href={details.link}
+                              >
+                                Click here
+                              </a>
+                            }
+                          />
+                          <DetailItem
+                            icon={<Cog className="text-purple-500" />}
+                            label="Tech Stack"
+                            value={
+                              <img
+                                src={details.techStack}
+                                alt="tech stack"
+                                className="h-5 ml-2 inline-block"
+                              />
+                            }
+                          />
+                          <DetailItem
+                            icon={<Calendar className="text-pink-500" />}
+                            label="Date"
+                            value={details.date}
+                          />
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -123,11 +131,19 @@ const CourseModal = ({ modalId, setGetModal }) => {
   );
 };
 
-const DetailItem = ({ icon, label, value }) => (
-  <div className="flex items-center space-x-2 text-sm sm:text-base">
-    {icon}
-    <span className="font-semibold">{label}:</span>
-    <span className="text-gray-600 dark:text-gray-300">{value}</span>
+const DetailItem = ({ icon, label, value, fullWidth = false }) => (
+  <div
+    className={`flex items-start space-x-2 text-sm sm:text-base ${
+      fullWidth ? "col-span-full" : ""
+    }`}
+  >
+    <span className="mt-1">{icon}</span>
+    <div className="flex-grow">
+      <span className="font-semibold">{label}:</span>
+      <span className="text-gray-600 dark:text-gray-300 ml-2 break-words">
+        {value}
+      </span>
+    </div>
   </div>
 );
 

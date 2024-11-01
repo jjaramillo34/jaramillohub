@@ -1,15 +1,13 @@
 import React from "react";
-import img1 from "../../../assets/img/portfolio/project-1.jpg";
-import img2 from "../../../assets/img/portfolio/project-2.jpg";
-import portfolioVideo from "../../../assets/img/portfolio/video.mp4";
-import CloseImg from "../../../assets/img/cancel.svg";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, FileText, User, Code, ExternalLink } from "lucide-react";
 import PortfolioData from "../portfolioData";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Modal = ({ modalId, setGetModal }) => {
-  var settings = {
+  const settings = {
     dots: true,
     infinite: true,
     speed: 500,
@@ -17,728 +15,147 @@ const Modal = ({ modalId, setGetModal }) => {
     slidesToScroll: 1,
     draggable: true,
   };
-  if (modalId === 1) {
-    return (
-      <div className="modal_portfolio ">
-        <div
-          className="modal__outside"
-          onClick={() => setGetModal(false)}
-        ></div>
-        <div></div>
-        <div className="modal__content">
-          {PortfolioData.filter((item) => item.id === modalId).map((item) => {
-            return (
-              <div key={item.id} data-aos="fade">
-                <h2 className="heading mb-2">{item.type}</h2>
-                <div className="modal__details">
-                  {item.modalDetails.map((details, i) => {
-                    return (
-                      <div key={i} className="row open-sans-font">
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-file-text-o pr-2"></i>
-                          Project:{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.project}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-user-o pr-2"></i>
-                          Client :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.client}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-code pr-2"></i>
-                          Language :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.language}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-external-link pr-2"></i>
-                          Preview :{" "}
-                          <a
-                            className="preview-link"
-                            target="_blank"
-                            rel="noopener noreferrer nofollow"
-                            href={details.link}
-                          >
-                            {details.preview}
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <figure className="modal__img">
-                  <img src={item.image} alt="portfolio project demo" />
-                </figure>
 
-                <button
-                  className="close-modal"
-                  onClick={() => setGetModal(false)}
-                >
-                  <img src={CloseImg} alt="portfolio project demo" />
-                </button>
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.3 } },
+  };
+
+  const item = PortfolioData.find((item) => item.id === modalId);
+
+  if (!item) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <motion.div
+          className="relative w-full max-w-4xl bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border-4 border-[#FFB401] dark:border-[#FFD980]"
+          variants={modalVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+        >
+          <div className="p-6 sm:p-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-[#FFB401] dark:text-[#FFD980] mb-6">
+              {item.type}
+            </h2>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+              <div className="space-y-4">
+                {item.modalDetails.map((details, index) => (
+                  <div
+                    key={index}
+                    className="bg-gray-100 dark:bg-gray-700 rounded-xl p-4"
+                  >
+                    <DetailItem
+                      icon={
+                        <FileText className="text-[#FFB401] dark:text-[#FFD980]" />
+                      }
+                      label="Project"
+                      value={details.project}
+                    />
+                    <DetailItem
+                      icon={
+                        <User className="text-[#FFB401] dark:text-[#FFD980]" />
+                      }
+                      label="Client"
+                      value={details.client}
+                    />
+                    <DetailItem
+                      icon={
+                        <Code className="text-[#FFB401] dark:text-[#FFD980]" />
+                      }
+                      label="Language"
+                      value={details.language}
+                    />
+                    <DetailItem
+                      icon={
+                        <ExternalLink className="text-[#FFB401] dark:text-[#FFD980]" />
+                      }
+                      label="Preview"
+                      value={
+                        <a
+                          className="text-[#FFB401] dark:text-[#FFD980] hover:underline"
+                          target="_blank"
+                          rel="noopener noreferrer nofollow"
+                          href={details.link}
+                        >
+                          {details.preview}
+                        </a>
+                      }
+                    />
+                  </div>
+                ))}
               </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  } else if (modalId === 2) {
-    return (
-      <div className="modal_portfolio">
-        <div
-          className="modal__outside"
-          onClick={() => setGetModal(false)}
-        ></div>
-        <div className="modal__content">
-          {PortfolioData.filter((item) => item.id === modalId).map((item) => {
-            return (
-              <div key={item.id} data-aos="fade">
-                <h2 className="heading mb-2">{item.type}</h2>
-                <div className="modal__details">
-                  {item.modalDetails.map((details, i) => {
-                    return (
-                      <div key={i} className="row open-sans-font">
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-file-text-o pr-2"></i>
-                          Project:{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.project}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-user-o pr-2"></i>
-                          Client :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.client}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-code pr-2"></i>
-                          Language :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.language}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-external-link pr-2"></i>
-                          Preview :{" "}
-                          <a
-                            className="preview-link"
-                            target="_blank"
-                            rel="noopener noreferrer nofollow"
-                            href={details.link}
-                          >
-                            {details.preview}
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <figure className="modal__img">
-                  <img src={item.image} alt="portfolio project demo" />
-                </figure>
-                <button
-                  className="close-modal"
-                  onClick={() => setGetModal(false)}
-                >
-                  <img src={CloseImg} alt="portfolio project demo" />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-//  } else if (modalId === 2) {
-//    return (
-//      <div className="modal_portfolio">
-//        <div
-//          className="modal__outside"
-//          onClick={() => setGetModal(false)}
-//        ></div>
-//        <div className="modal__content">
-//          {PortfolioData.filter((item) => item.id === modalId).map((item) => {
-//            return (
-//              <div key={item.id} data-aos="fade">
-//                <h2 className="heading mb-2">{item.type}</h2>
-//                <div className="modal__details">
-//                  {item.modalDetails.map((details, i) => {
-//                    return (
-//                      <div key={i} className="row open-sans-font">
-//                        <div className="col-12 col-sm-6 mb-2">
-//                          <i className="fa fa-file-text-o pr-2"></i>
-//                          Project:{" "}
-//                          <span className="ft-wt-600 uppercase">
-//                            {details.project}
-//                          </span>
-//                        </div>
-//                        <div className="col-12 col-sm-6 mb-2">
-//                          <i className="fa fa-user-o pr-2"></i>
-//                          Client :{" "}
-//                          <span className="ft-wt-600 uppercase">
-//                            {details.client}
-//                          </span>
-//                        </div>
-//                        <div className="col-12 col-sm-6 mb-2">
-//                          <i className="fa fa-code pr-2"></i>
-//                          Language :{" "}
-//                          <span className="ft-wt-600 uppercase">
-//                            {details.language}
-//                          </span>
-//                        </div>
-//                        <div className="col-12 col-sm-6 mb-2">
-//                          <i className="fa fa-external-link pr-2"></i>
-//                          Preview :{" "}
-//                          <a
-//                            className="preview-link"
-//                            target="_blank"
-//                            rel="noopener noreferrer nofollow"
-//                            href={details.link}
-//                          >
-//                            {details.preview}
-//                          </a>
-//                        </div>
-//                      </div>
-//                    );
-//                  })}
-//                </div>
-//                <figure className="modal__img videocontainer">
-//                  <iframe
-//                    src="https://www.youtube.com/embed/7e90gBu4pas"
-//                    title="YouTube video player"
-//                    className="youtube-video"
-//                    allowFullScreen
-//                  ></iframe>
-//                </figure>
-                //
-//                <button
-//                  className="close-modal"
-//                  onClick={() => setGetModal(false)}
-//                >
-//                  <img src={CloseImg} alt="portfolio project demo" />
-//                </button>
-//              </div>
-//            );
-//          })}
-//        </div>
-//      </div>
-//    );
-  } else if (modalId === 3) {
-    return (
-      <div className="modal_portfolio">
-        <div
-          className="modal__outside"
-          onClick={() => setGetModal(false)}
-        ></div>
-        <div className="modal__content">
-          {PortfolioData.filter((item) => item.id === modalId).map((item) => {
-            //
-            return (
-              <div key={item.id} data-aos="fade">
-                <h2 className="heading mb-2">{item.type}</h2>
-                <div className="modal__details">
-                  {item.modalDetails.map((details, i) => {
-                    return (
-                      <div key={i} className="row open-sans-font">
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-file-text-o pr-2"></i>
-                          Project:{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.project}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-user-o pr-2"></i>
-                          Client :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.client}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-code pr-2"></i>
-                          Language :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.language}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-external-link pr-2"></i>
-                          Preview :{" "}
-                          <a
-                            className="preview-link"
-                            target="_blank"
-                            rel="noopener noreferrer nofollow"
-                            href={details.link}
-                          >
-                            {details.preview}
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <figure className="modal__img">
+              <div className="bg-gray-100 dark:bg-gray-700 rounded-xl p-4">
+                {modalId === 3 ? (
                   <Slider {...settings}>
                     <div>
-                      <img src={item.image} alt="portfolio project demo" />
+                      <img
+                        src={item.image}
+                        alt={item.type}
+                        className="w-full h-auto rounded-lg"
+                      />
                     </div>
                     <div>
-                      <img src={img1} alt="portfolio project demo" />
+                      <img
+                        src={item.image}
+                        alt={item.type}
+                        className="w-full h-auto rounded-lg"
+                      />
                     </div>
                     <div>
-                      <img src={img2} alt="portfolio project demo" />
+                      <img
+                        src={item.image}
+                        alt={item.type}
+                        className="w-full h-auto rounded-lg"
+                      />
                     </div>
                   </Slider>
-                </figure>
-
-                <button
-                  className="close-modal"
-                  onClick={() => setGetModal(false)}
-                >
-                  <img src={CloseImg} alt="portfolio project demo" />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  } else if (modalId === 4) {
-    return (
-      <div className="modal_portfolio">
-        <div
-          className="modal__outside"
-          onClick={() => setGetModal(false)}
-        ></div>
-        <div className="modal__content">
-          {PortfolioData.filter((item) => item.id === modalId).map((item) => {
-            //
-            return (
-              <div key={item.id} data-aos="fade">
-                <h2 className="heading mb-2">{item.type}</h2>
-                <div className="modal__details">
-                  {item.modalDetails.map((details, i) => {
-                    return (
-                      <div key={i} className="row open-sans-font">
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-file-text-o pr-2"></i>
-                          Project:{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.project}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-user-o pr-2"></i>
-                          Client :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.client}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-code pr-2"></i>
-                          Language :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.language}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-external-link pr-2"></i>
-                          Preview :{" "}
-                          <a
-                            className="preview-link"
-                            target="_blank"
-                            rel="noopener noreferrer nofollow"
-                            href={details.link}
-                          >
-                            {details.preview}
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <figure className="modal__img">
-                  {/* <img src={item.image} alt="portfolio project demo" /> */}
+                ) : modalId === 4 ? (
                   <video
-                    id="video"
-                    className="responsive-video"
+                    className="w-full h-auto rounded-lg"
                     controls
                     poster={item.image}
                   >
-                    <source src={portfolioVideo} type="video/mp4" />
-                    {/* <source src="img/" type="video/mp4" /> */}
+                    <source src={item.video} type="video/mp4" />
+                    Your browser does not support the video tag.
                   </video>
-                </figure>
-
-                <button
-                  className="close-modal"
-                  onClick={() => setGetModal(false)}
-                >
-                  <img src={CloseImg} alt="portfolio project demo" />
-                </button>
+                ) : (
+                  <img
+                    src={item.image}
+                    alt={item.type}
+                    className="w-full h-auto rounded-lg"
+                  />
+                )}
               </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  } else if (modalId === 5) {
-    return (
-      <div className="modal_portfolio">
-        <div
-          className="modal__outside"
-          onClick={() => setGetModal(false)}
-        ></div>
-        <div className="modal__content">
-          {PortfolioData.filter((item) => item.id === modalId).map((item) => {
-            //
-            return (
-              <div key={item.id} data-aos="fade">
-                <h2 className="heading mb-2">{item.type}</h2>
-                <div className="modal__details">
-                  {item.modalDetails.map((details, i) => {
-                    return (
-                      <div key={i} className="row open-sans-font">
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-file-text-o pr-2"></i>
-                          Project:{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.project}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-user-o pr-2"></i>
-                          Client :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.client}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-code pr-2"></i>
-                          Language :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.language}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-external-link pr-2"></i>
-                          Preview :{" "}
-                          <a
-                            className="preview-link"
-                            target="_blank"
-                            rel="noopener noreferrer nofollow"
-                            href={details.link}
-                          >
-                            {details.preview}
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <figure className="modal__img">
-                  <img src={item.image} alt="portfolio project demo" />
-                </figure>
+            </div>
 
-                <button
-                  className="close-modal"
-                  onClick={() => setGetModal(false)}
-                >
-                  <img src={CloseImg} alt="portfolio project demo" />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  } else if (modalId === 6) {
-    return (
-      <div className="modal_portfolio">
-        <div
-          className="modal__outside"
-          onClick={() => setGetModal(false)}
-        ></div>
-        <div className="modal__content">
-          {PortfolioData.filter((item) => item.id === modalId).map((item) => {
-            //
-            return (
-              <div key={item.id} data-aos="fade">
-                <h2 className="heading mb-2">{item.type}</h2>
-                <div className="modal__details">
-                  {item.modalDetails.map((details, i) => {
-                    return (
-                      <div key={i} className="row open-sans-font">
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-file-text-o pr-2"></i>
-                          Project:{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.project}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-user-o pr-2"></i>
-                          Client :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.client}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-code pr-2"></i>
-                          Language :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.language}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-external-link pr-2"></i>
-                          Preview :{" "}
-                          <a
-                            className="preview-link"
-                            target="_blank"
-                            rel="noopener noreferrer nofollow"
-                            href={details.link}
-                          >
-                            {details.preview}
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <figure className="modal__img">
-                  <img src={item.image} alt="portfolio project demo" />
-                </figure>
-
-                <button
-                  className="close-modal"
-                  onClick={() => setGetModal(false)}
-                >
-                  <img src={CloseImg} alt="portfolio project demo" />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  } else if (modalId === 7) {
-    return (
-      <div className="modal_portfolio">
-        <div
-          className="modal__outside"
-          onClick={() => setGetModal(false)}
-        ></div>
-        <div className="modal__content">
-          {PortfolioData.filter((item) => item.id === modalId).map((item) => {
-            //
-            return (
-              <div key={item.id} data-aos="fade">
-                <h2 className="heading mb-2">{item.type}</h2>
-                <div className="modal__details">
-                  {item.modalDetails.map((details, i) => {
-                    return (
-                      <div key={i} className="row open-sans-font">
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-file-text-o pr-2"></i>
-                          Project:{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.project}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-user-o pr-2"></i>
-                          Client :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.client}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-code pr-2"></i>
-                          Language :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.language}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-external-link pr-2"></i>
-                          Preview :{" "}
-                          <a
-                            className="preview-link"
-                            target="_blank"
-                            rel="noopener noreferrer nofollow"
-                            href={details.link}
-                          >
-                            {details.preview}
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <figure className="modal__img">
-                  <img src={item.image} alt="portfolio project demo" />
-                </figure>
-
-                <button
-                  className="close-modal"
-                  onClick={() => setGetModal(false)}
-                >
-                  <img src={CloseImg} alt="portfolio project demo" />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  } else if (modalId === 8) {
-    return (
-      <div className="modal_portfolio">
-        <div
-          className="modal__outside"
-          onClick={() => setGetModal(false)}
-        ></div>
-        <div className="modal__content">
-          {PortfolioData.filter((item) => item.id === modalId).map((item) => {
-            //
-            return (
-              <div key={item.id} data-aos="fade">
-                <h2 className="heading mb-2">{item.type}</h2>
-                <div className="modal__details">
-                  {item.modalDetails.map((details, i) => {
-                    return (
-                      <div key={i} className="row open-sans-font">
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-file-text-o pr-2"></i>
-                          Project:{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.project}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-user-o pr-2"></i>
-                          Client :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.client}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-code pr-2"></i>
-                          Language :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.language}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-external-link pr-2"></i>
-                          Preview :{" "}
-                          <a
-                            className="preview-link"
-                            target="_blank"
-                            rel="noopener noreferrer nofollow"
-                            href={details.link}
-                          >
-                            {details.preview}
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <figure className="modal__img">
-                  <img src={item.image} alt="portfolio project demo" />
-                </figure>
-
-                <button
-                  className="close-modal"
-                  onClick={() => setGetModal(false)}
-                >
-                  <img src={CloseImg} alt="portfolio project demo" />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  } else if (modalId === 9) {
-    return (
-      <div className="modal_portfolio">
-        <div
-          className="modal__outside"
-          onClick={() => setGetModal(false)}
-        ></div>
-        <div className="modal__content">
-          {PortfolioData.filter((item) => item.id === modalId).map((item) => {
-            //
-            return (
-              <div key={item.id} data-aos="fade">
-                <h2 className="heading mb-2">{item.type}</h2>
-                <div className="modal__details">
-                  {item.modalDetails.map((details, i) => {
-                    return (
-                      <div key={i} className="row open-sans-font">
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-file-text-o pr-2"></i>
-                          Project:{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.project}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-user-o pr-2"></i>
-                          Client :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.client}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-code pr-2"></i>
-                          Language :{" "}
-                          <span className="ft-wt-600 uppercase">
-                            {details.language}
-                          </span>
-                        </div>
-                        <div className="col-12 col-sm-6 mb-2">
-                          <i className="fa fa-external-link pr-2"></i>
-                          Preview :{" "}
-                          <a
-                            className="preview-link"
-                            target="_blank"
-                            rel="noopener noreferrer nofollow"
-                            href={details.link}
-                          >
-                            {details.preview}
-                          </a>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <figure className="modal__img">
-                  <img src={item.image} alt="portfolio project demo" />
-                </figure>
-
-                <button
-                  className="close-modal"
-                  onClick={() => setGetModal(false)}
-                >
-                  <img src={CloseImg} alt="portfolio project demo" />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  }
+            <button
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 bg-white dark:bg-gray-800 rounded-full p-2 transition-colors duration-200"
+              onClick={() => setGetModal(false)}
+            >
+              <X size={24} />
+            </button>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
 };
+
+const DetailItem = ({ icon, label, value }) => (
+  <div className="flex items-center space-x-2 mb-2 text-gray-700 dark:text-gray-300">
+    {icon}
+    <span className="font-semibold">{label}:</span>
+    <span>{value}</span>
+  </div>
+);
 
 export default Modal;
