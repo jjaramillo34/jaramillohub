@@ -1,0 +1,12 @@
+/* Import mapbox styles */
+@import 'mapbox-gl/dist/mapbox-gl.css';
+
+/* Override mapbox styles if needed */
+.mapboxgl-map {
+  border-radius: 0.5rem;
+}
+
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl-bottom-left {
+  display: none;
+}

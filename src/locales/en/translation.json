@@ -7,10 +7,9 @@
     "testimonial": "Testimonial",
     "heroTitleName": "I'm javier jaramillo",
     "heroDesignation": "data analyst",
-    "heroDescriptions": "I'm a data analyst and junior data engineer with a passion for data science and machine learning. I have a bachelor's degree in computer science and a master's degree in data science. I have experience in data analysis, data engineering, machine learning, and data visualization. I'm currently looking for a job as a data analyst or junior data engineer.",
+    "heroDescriptions": "As a dedicated data professional with a background in analytics and junior data engineering, I bring a fervent passion for data science and machine learning. Armed with a degree in Computer Science, I possess a diverse skill set spanning data analysis, engineering, machine learning, and visualization, leveraging tools such as Python, R, SQL, TensorFlow, and Tableau. Actively pursuing roles as a Data Analyst or Junior Data Engineer, my goal is to drive impactful solutions and foster data-driven innovation. Fully authorized to work in the US and fluent in both English and Spanish, I offer seamless communication in any professional setting. I am eagerly looking forward to collaborating with forward-thinking teams, committed to making a tangible difference. Don't hesitate to reach out to explore potential opportunities or to delve deeper into my qualifications.",
     "heroBtn": "More about me",
     "educationTitle": "Education",
-    "achievementsTitle": "Achievements",
     "achievementsSubTitle10": "years of",
     "achievementsSubTitle11": "experience",
     "achievementsSubTitle20": "completed",
@@ -87,8 +86,9 @@
     "skillsTitle": "My Skills",
     "educationTitle1": "Experiencie ",
     "educationTitle2": "Education",
-    "aboutmeTitle1": "About",
-    "aboutmeTitle2": "Me",
+    "aboutmeTitle1": "ABOUT",
+    "aboutmeTitle2": "ME",
+    "aboutmeBackgroundText": "RESUME",
     "aboutmeTitle3": "Resume",
     "mycoursesTitle1": "My",
     "mycoursesTitle2": "Courses",
@@ -129,5 +129,18 @@
     "coursesTitle1": "Data Analitycs",
     "coursesInstitute1": "General Assembly, New York, NY, USA",
     "coursesDetails1": "3 months Data Analytics course at General Assembly, focused on data analysis, data visualization, and sql.",
-    "githubStatsTitle": "Github Stats"
+    "githubStatsTitle": "Github Stats",
+    "notFoundMessage": "We are sorry, but the page you are looking for cannot be found.",
+    "notFound2": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "notFoundDescription": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "notFoundButton": "Back to home",
+    "404Error": "404!",
+    "skills": {
+        "programmingLanguages": "Programming Languages",
+        "dataScience": "Data Science & ML",
+        "dataEngineering": "Data Engineering",
+        "dataVisualization": "Data Visualization",
+        "webDevelopment": "Web Development"
+    },
+    "achievementsTitle": "Achievements"
 }

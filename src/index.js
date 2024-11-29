@@ -1,23 +1,29 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import "./assets/scss/main.scss";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import "./i18n";
+import "./index.css";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const App = React.lazy(() => import("./App"));
 
-root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+const LoadingFallback = () => (
+  <div className="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex flex-col items-center justify-center min-h-screen">
+    <div className="relative">
+      <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#FFB401]/20 border-t-[#FFB401]"></div>
+      <div className="mt-4 text-lg font-medium text-[#FFB401]">
+        JaramilloHub
+      </div>
+    </div>
+  </div>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals(console.log);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <Suspense fallback={<LoadingFallback />}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Suspense>
+  </React.StrictMode>
+);

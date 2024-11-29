@@ -1,12 +1,94 @@
-[
-  { "color": "blue", "hex": "#4169e1" },
-  { "color": "blueviolet", "hex": "#8a2be2" },
-  { "color": "goldenrod", "hex": "#daa520" },
-  { "color": "green", "hex": "#72b626" },
-  { "color": "magenta", "hex": "#ee6192" },
-  { "color": "orange", "hex": "#fa5b0f" },
-  { "color": "purple", "hex": "#6957af" },
-  { "color": "red", "hex": "#f72b1c" },
-  { "color": "yellow", "hex": "#ffb400" },
-  { "color": "yellowgreen", "hex": "#9acd32" }
-]
+{
+  "theme": {
+    "primary": "#FFB401",
+    "secondary": "#FF9000"
+  },
+  "palette": [
+    {
+      "name": "blue",
+      "hex": "#4169e1",
+      "rgb": "65, 105, 225",
+      "category": "cool"
+    },
+    {
+      "name": "blueviolet",
+      "hex": "#8a2be2",
+      "rgb": "138, 43, 226",
+      "category": "cool"
+    },
+    {
+      "name": "goldenrod",
+      "hex": "#daa520",
+      "rgb": "218, 165, 32",
+      "category": "warm"
+    },
+    {
+      "name": "green",
+      "hex": "#72b626",
+      "rgb": "114, 182, 38",
+      "category": "nature"
+    },
+    {
+      "name": "magenta",
+      "hex": "#ee6192",
+      "rgb": "238, 97, 146",
+      "category": "vibrant"
+    },
+    {
+      "name": "orange",
+      "hex": "#fa5b0f",
+      "rgb": "250, 91, 15",
+      "category": "warm"
+    },
+    {
+      "name": "purple",
+      "hex": "#6957af",
+      "rgb": "105, 87, 175",
+      "category": "cool"
+    },
+    {
+      "name": "red",
+      "hex": "#f72b1c",
+      "rgb": "247, 43, 28",
+      "category": "warm"
+    },
+    {
+      "name": "yellow",
+      "hex": "#ffb400",
+      "rgb": "255, 180, 0",
+      "category": "warm"
+    },
+    {
+      "name": "yellowgreen",
+      "hex": "#9acd32",
+      "rgb": "154, 205, 50",
+      "category": "nature"
+    }
+  ],
+  "gradients": {
+    "primary": {
+      "from": "#FFB401",
+      "to": "#FF9000"
+    },
+    "dark": {
+      "from": "gray-900",
+      "via": "gray-800",
+      "to": "gray-900"
+    },
+    "light": {
+      "from": "gray-50",
+      "via": "gray-100",
+      "to": "white"
+    }
+  },
+  "states": {
+    "hover": {
+      "opacity": 0.8,
+      "scale": 1.05
+    },
+    "active": {
+      "opacity": 0.7,
+      "scale": 0.95
+    }
+  }
+}

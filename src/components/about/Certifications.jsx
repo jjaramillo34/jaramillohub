@@ -1,72 +1,58 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Calendar, Award, Building } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion } from "framer-motion";
+import { Calendar, Award, Building, ExternalLink } from "lucide-react";
 
 const Certifications = () => {
   const { t } = useTranslation();
   const certificationsContent = [
     {
       year: "2022",
-      title: "Computer Associate (Software)",
-      institute: "DCAS",
-      type: "certification",
+      title: t("coursesTitle1"),
+      institute: t("coursesInstitute1"),
+      details: t("coursesDetails1"),
+      link: "https://www.coursera.org/",
     },
-    {
-      year: "2020",
-      title: "Computer Programmer Analyst",
-      institute: "DCAS",
-      type: "certification",
-    },
+    // Add more certifications here
   ];
-
-  const listRef = useRef([]);
-
-  useEffect(() => {
-    listRef.current.forEach((item, index) => {
-      gsap.fromTo(
-        item,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: item,
-            start: "top 90%",
-          },
-          delay: index * 0.2,
-        }
-      );
-    });
-  }, []);
 
   return (
     <div className="space-y-8">
-      {certificationsContent.map((val, i) => (
-        <div
+      {certificationsContent.map((cert, i) => (
+        <motion.div
           key={i}
-          ref={(el) => (listRef.current[i] = el)}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: i * 0.1 }}
           className="border-l-4 border-[#FFB401] pl-4 py-2"
         >
-          <div className="flex items-center text-gray-600 text-sm mb-2">
-            <Calendar className="w-4 h-4 mr-2 text-[#FFB401]" />
-            <span>{val.year}</span>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+            <h3 className="text-lg font-bold text-[#FFB401]">{cert.title}</h3>
+            <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm mt-1 md:mt-0">
+              <Calendar className="w-4 h-4 mr-2" />
+              <span>{cert.year}</span>
+            </div>
           </div>
-          <h3 className="text-lg font-bold text-[#FFB401] mb-1">{val.title}</h3>
-          <div className="flex items-center text-gray-700 text-sm mb-2">
+          <div className="flex items-center mb-2 text-gray-700 dark:text-gray-300 text-sm">
             <Building className="w-4 h-4 mr-2" />
-            <span>{val.institute}</span>
+            <span>{cert.institute}</span>
           </div>
-          <div className="mt-2 flex items-center text-sm text-gray-500">
-            <Award className="w-4 h-4 mr-2 text-[#FFB401]" />
-            <span>{val.type}</span>
-          </div>
-        </div>
+          <p className="text-gray-600 dark:text-gray-400 mb-3 text-sm">
+            {cert.details}
+          </p>
+          {cert.link && (
+            <motion.a
+              href={cert.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-[#FFB401] hover:underline"
+              whileHover={{ x: 5 }}
+            >
+              {t("viewCertificate")}
+              <ExternalLink className="w-4 h-4 ml-1" />
+            </motion.a>
+          )}
+        </motion.div>
       ))}
     </div>
   );

@@ -77,28 +77,52 @@
   "experienceDetails60List4": "Achieved 94.3% adherence to industry standards, regulatory requirements, and Cybersecurity best practices by conducting monthly security audits, risk assessments, and compliance reviews.",
   "experienceDetails60List5": "Strengthened security posture and compliance by implementing Access Control Lists (ACLs) and Identity Access Management (IAM) policies across multiple user accounts.",
   "experienceCompanyName60": "NYC Department of Education (DOE)",
-  "personalInfoMeta1": "first name",
-  "personalInfoMetaInfo1": "Javier",
-  "personalInfoMeta2": "last name",
-  "personalInfoMetaInfo2": "Jaramillo",
-  "personalInfoMeta3": "age",
-  "personalInfoMetaInfo3": "45",
-  "personalInfoMeta4": "address",
-  "personalInfoMetaInfo4": "New York, NY, USA",
-  "personalInfoMeta5": "email",
-  "personalInfoMetaInfo5": "javier@jaramillohub.com",
-  "personalInfoMeta6": "phone",
-  "personalInfoMetaInfo6": "+1 347 239 9026",
-  "personalInfoMeta7": "website",
-  "personalInfoMetaInfo7": "jaramillohub.com",
-  "personalInfoMeta8": "freelance",
-  "personalInfoMetaInfo8": "Available",
-  "personalInfoMeta9": "degree",
-  "personalInfoMetaInfo9": "Bachellor",
-  "personalInfoMeta10": "language",
-  "personalInfoMetaInfo10": "English, Spanish",
-  "personalInfos": "Personal Information",
-  "personalInfoButton": "Download CV",
+  "personalInfo": {
+    "title": "Personal Information",
+    "download": "Download CV",
+    "fields": {
+      "firstName": {
+        "label": "First Name",
+        "value": "Javier"
+      },
+      "lastName": {
+        "label": "Last Name",
+        "value": "Jaramillo"
+      },
+      "age": {
+        "label": "Age",
+        "value": "45"
+      },
+      "address": {
+        "label": "Address",
+        "value": "New York, NY, USA"
+      },
+      "email": {
+        "label": "Email",
+        "value": "javier@jaramillohub.com"
+      },
+      "phone": {
+        "label": "Phone",
+        "value": "+1 347 239 9026"
+      },
+      "website": {
+        "label": "Website",
+        "value": "datanaly.st"
+      },
+      "freelance": {
+        "label": "Freelance",
+        "value": "Available"
+      },
+      "degree": {
+        "label": "Degree",
+        "value": "Computer Science"
+      },
+      "languages": {
+        "label": "Languages",
+        "value": "English, Spanish"
+      }
+    }
+  },
   "skillsTitle": "My Skills",
   "educationTitle1": "Experiencie ",
   "educationTitle2": "Education",
@@ -145,9 +169,97 @@
   "coursesInstitute1": "General Assembly, New York, NY, USA",
   "coursesDetails1": "3 months Data Analytics course at General Assembly, focused on data analysis, data visualization, and sql.",
   "githubStatsTitle": "Github Stats",
-  "notFoundMessage": "We are sorry, but the page you are looking for cannot be found.",
+  "notFoundMessage": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
   "notFound2": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
   "notFoundDescription": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
-  "notFoundButton": "Back to home",
-  "404Error": "404!"
+  "notFoundButton": "Back to Home",
+  "404Error": "404!",
+  "notFoundTitle": "Page Not Found",
+  "achievements": {
+    "title": "Achievements",
+    "experience": {
+      "title": "Years Experience",
+      "subtitle": "of experience"
+    },
+    "projects": {
+      "title": "Projects",
+      "subtitle": "completed"
+    },
+    "clients": {
+      "title": "Happy Clients",
+      "subtitle": "worldwide"
+    },
+    "awards": {
+      "title": "Awards",
+      "subtitle": "received"
+    }
+  },
+  "certifications": {
+    "title": "Certifications",
+    "viewCertificate": "View Certificate",
+    "types": {
+      "software": "Software",
+      "programming": "Programming",
+      "development": "Development"
+    }
+  },
+  "education": {
+    "title": "Education",
+    "degree": "Degree",
+    "institute": "Institute",
+    "duration": "Duration",
+    "viewDetails": "View Details"
+  },
+  "courses": {
+    "title": "Courses",
+    "viewCourse": "View Course",
+    "platform": "Platform",
+    "duration": "Duration",
+    "completed": "Completed"
+  },
+  "common": {
+    "settings": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "navigation": {
+    "scrollToTop": "Scroll to top",
+    "menu": {
+      "home": "Home",
+      "about": "About",
+      "portfolio": "Portfolio",
+      "contact": "Contact",
+      "blog": "Blog"
+    }
+  },
+  "social": {
+    "follow": "Follow me on",
+    "links": {
+      "github": "GitHub Profile",
+      "linkedin": "LinkedIn Profile",
+      "twitter": "Twitter Profile",
+      "facebook": "Facebook Profile"
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Let's talk about everything!",
+    "success": "Message sent successfully!",
+    "error": "Something went wrong. Please try again.",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "subject": "Subject",
+      "message": "Your Message",
+      "send": "Send Message"
+    },
+    "address": {
+      "title": "Address",
+      "email": "Email Me",
+      "phone": "Call Me"
+    }
+  }
 }

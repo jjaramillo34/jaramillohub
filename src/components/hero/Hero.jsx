@@ -1,234 +1,370 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, X, Code, Users, Coffee, Heart } from "lucide-react";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
+import Index from "../about/AboutPage";
 
 import heroImg from "../../assets/img/hero/dark.png";
 import heroImgMobile from "../../assets/img/hero/mobile.png";
-import Index from "../about/AboutPage";
 
 gsap.registerPlugin(TextPlugin);
+
+const animateValue = (obj, start, end, duration, suffix = "") => {
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const currentValue = Math.floor(progress * (end - start) + start);
+    if (obj.current) {
+      obj.current.textContent = currentValue.toLocaleString() + suffix;
+    }
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
+};
+
+const ParticleBackground = () => {
+  const particlesRef = useRef(null);
+
+  useEffect(() => {
+    if (!particlesRef.current) return;
+
+    const particlesContainer = particlesRef.current;
+    const particles = [];
+    const particleCount = 150;
+
+    const isDarkTheme = () =>
+      document.documentElement.classList.contains("dark");
+    particlesContainer.innerHTML = "";
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement("div");
+      particle.style.cssText = `
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background-color: ${isDarkTheme() ? "#FFB401" : "#000000"};
+        border-radius: 50%;
+        top: 0;
+        left: 0;
+        will-change: transform, opacity;
+        filter: blur(0.5px);
+      `;
+
+      particlesContainer.appendChild(particle);
+      particles.push(particle);
+
+      const startX = Math.random() * window.innerWidth;
+      const startY = Math.random() * window.innerHeight;
+
+      gsap.set(particle, {
+        x: startX,
+        y: startY,
+        opacity: 0,
+      });
+
+      gsap.to(particle, {
+        duration: Math.random() * 8 + 8,
+        x: startX + (Math.random() * 150 - 75),
+        y: startY + (Math.random() * 150 - 75),
+        opacity: Math.random() * 0.4 + 0.1,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: Math.random() * 3,
+      });
+    }
+
+    const handleResize = () => {
+      particles.forEach((particle) => {
+        const startX = Math.random() * window.innerWidth;
+        const startY = Math.random() * window.innerHeight;
+        gsap.set(particle, { x: startX, y: startY });
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    const observer = new MutationObserver(() => {
+      particles.forEach((particle) => {
+        particle.style.backgroundColor = isDarkTheme() ? "#FFB401" : "#000000";
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      observer.disconnect();
+      particles.forEach((particle) => {
+        gsap.killTweensOf(particle);
+        particle.remove();
+      });
+    };
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-gray-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" />
+      <div
+        ref={particlesRef}
+        className="absolute inset-0 pointer-events-none z-0"
+      />
+    </div>
+  );
+};
 
 const Hero = () => {
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const titleNameRef = useRef(null);
-  const designationRef = useRef(null);
-  const descriptionRef = useRef(null);
-  const buttonRef = useRef(null);
-  const imageRef = useRef(null);
-  const mobileImageRef = useRef(null);
-  const modalRef = useRef(null);
+  const refs = {
+    titleName: useRef(null),
+    designation: useRef(null),
+    description: useRef(null),
+    button: useRef(null),
+    image: useRef(null),
+    mobileImage: useRef(null),
+    modal: useRef(null),
+    stats: useRef([]),
+  };
 
   const heroContent = {
-    heroImage: heroImg,
-    heroMobileImage: heroImgMobile,
     heroTitleName: t("heroTitleName").toUpperCase(),
     heroDesignation: t("heroDesignation").toUpperCase(),
     heroDescriptions: t("heroDescriptions"),
     heroBtn: t("heroBtn").toUpperCase(),
+    stats: [
+      { icon: <Code />, value: 30000, label: "Lines of Code", suffix: "+" },
+      { icon: <Users />, value: 10, label: "Clients", suffix: "+" },
+      { icon: <Coffee />, value: 100, label: "Coffee Cups", suffix: "+" },
+      { icon: <Heart />, value: 10, label: "Projects", suffix: "+" },
+    ],
   };
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const toggleModal = useCallback(() => {
     if (!isModalOpen) {
-      gsap.to(modalRef.current, {
-        duration: 0.5,
+      setIsModalOpen(true);
+      gsap.to(refs.modal.current, {
+        duration: 0.4,
         opacity: 1,
         y: 0,
-        ease: "power3.out",
+        ease: "power2.out",
         pointerEvents: "auto",
       });
     } else {
-      gsap.to(modalRef.current, {
-        duration: 0.5,
+      gsap.to(refs.modal.current, {
+        duration: 0.3,
         opacity: 0,
-        y: 50,
-        ease: "power3.in",
+        y: 20,
+        ease: "power2.in",
         pointerEvents: "none",
+        onComplete: () => setIsModalOpen(false),
       });
     }
-  };
+  }, [isModalOpen]);
 
   useEffect(() => {
-    // Set initial state for images
-    gsap.set([imageRef.current, mobileImageRef.current], {
+    const tl = gsap.timeline();
+
+    gsap.set([refs.image.current, refs.mobileImage.current], {
       opacity: 0,
       scale: 0.8,
     });
 
-    // Initial animations
-    const tl = gsap.timeline();
-
-    // Scramble text effect for the title name
-    tl.to(titleNameRef.current, {
-      duration: 2,
-      text: {
-        value: heroContent.heroTitleName,
-        scrambleText: {
-          chars: "lowerCase",
-          revealDelay: 0.5,
-          speed: 0.3,
-        },
-      },
-      ease: "none",
-    });
-
-    // Scramble text effect for the designation
-    tl.to(
-      designationRef.current,
-      {
-        duration: 2,
-        text: {
-          value: heroContent.heroDesignation,
-          scrambleText: {
-            chars: "upperCase",
-            revealDelay: 0.5,
-            speed: 0.3,
-          },
-        },
-        ease: "none",
-      },
-      "-=1.5"
-    );
-
-    // Typing effect for the description
-    tl.to(descriptionRef.current, {
-      duration: 2,
-      text: heroContent.heroDescriptions,
-      ease: "none",
-    });
-
-    // Button animation
-    tl.from(buttonRef.current, {
-      duration: 0.5,
+    gsap.set(refs.button.current, {
       opacity: 0,
       y: 20,
-      ease: "power3.out",
     });
 
-    // Image animations
-    tl.to(
-      imageRef.current,
-      {
+    tl.to(refs.titleName.current, {
+      duration: 2,
+      text: heroContent.heroTitleName,
+      ease: "none",
+    })
+      .to(
+        refs.designation.current,
+        {
+          duration: 1.5,
+          text: heroContent.heroDesignation,
+          ease: "none",
+        },
+        "-=1"
+      )
+      .to(refs.description.current, {
+        duration: 1.5,
+        text: heroContent.heroDescriptions,
+        ease: "none",
+      })
+      .to(refs.button.current, {
+        duration: 0.5,
+        opacity: 1,
+        y: 0,
+        ease: "power3.out",
+      })
+      .to([refs.image.current, refs.mobileImage.current], {
         duration: 1,
         opacity: 1,
         scale: 1,
+        stagger: 0.2,
         ease: "power3.out",
+      });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = refs.stats.current.indexOf(entry.target);
+            const stat = heroContent.stats[index];
+            if (stat && entry.target) {
+              animateValue(
+                { current: entry.target },
+                0,
+                stat.value,
+                2000,
+                stat.suffix
+              );
+            }
+          }
+        });
       },
-      "-=0.5"
+      { threshold: 0.5 }
     );
 
-    tl.to(
-      mobileImageRef.current,
-      {
-        duration: 0.5,
-        opacity: 1,
-        scale: 1,
-        ease: "back.out(1.7)",
-      },
-      "-=0.25"
-    );
-  }, []);
+    refs.stats.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [heroContent]);
 
   return (
-    <div className="relative pt-8 lg:pt-12">
-      {" "}
-      {/* Added top padding to account for header */}
-      {/* Background Pattern */}
-      <div className="absolute inset-0 z-0">
-        <svg
-          className="w-full h-full"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 80 80"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 0h80v80H0z"
-            fill="currentColor"
-            className="text-gray-50 dark:text-gray-800"
-          />
-          <path
-            d="M0 0h40v40H0z"
-            fill="currentColor"
-            className="text-[#FFB401] dark:text-[#FFD980] opacity-5"
-          />
-          <path
-            d="M40 40h40v40H40z"
-            fill="currentColor"
-            className="text-[#FFB401] dark:text-[#FFD980] opacity-5"
-          />
-        </svg>
-      </div>
-      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between min-h-screen p-8 lg:p-16 max-w-7xl mx-auto">
-        <div className="w-full lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0">
-          <h1 className="text-2xl lg:text-4xl font-bold mb-8 text-gray-600 dark:text-white">
-            <span ref={titleNameRef} className="inline-block">
-              -
-            </span>
-            <span
-              ref={designationRef}
-              className="block text-gray-600 dark:text-[#FFD980] mt-2"
-            ></span>
-          </h1>
-          <p
-            ref={descriptionRef}
-            className="text-xl mb-8 text-gray-600 dark:text-gray-300 text-justify"
-          ></p>
-          <button
-            ref={buttonRef}
-            onClick={toggleModal}
-            className="bg-[#FFB401] dark:bg-[#FFD980] text-white dark:text-gray-900 px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA000] dark:hover:bg-[#FFECBF] transition-colors duration-300 flex items-center justify-center mx-auto lg:mx-0 shadow-lg hover:shadow-xl"
-          >
-            <span className="mr-2">{heroContent.heroBtn}</span>
-            <ArrowRight size={24} />
-          </button>
-        </div>
-        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative">
-          <img
-            ref={imageRef}
-            src={heroContent.heroImage}
-            alt="Hero"
-            className="w-full max-w-lg h-auto rounded-3xl shadow-2xl"
-          />
-          <img
-            ref={mobileImageRef}
-            src={heroContent.heroMobileImage}
-            alt="Hero Mobile"
-            className="absolute -bottom-6 -left-6 w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 shadow-lg"
-          />
-        </div>
-      </div>
-      {/* Modal */}
-      <div
-        ref={modalRef}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none"
-        style={{ transform: "translateY(50px)" }}
-      >
-        <div
-          className="absolute inset-0 bg-black opacity-50"
-          onClick={toggleModal}
-        ></div>
-        <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-          <button
-            onClick={toggleModal}
-            className="absolute top-4 right-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-          >
-            <X size={24} />
-          </button>
-          <div className="p-8">
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">
-              ABOUT{" "}
-              <span className="text-[#FFB401] dark:text-[#FFD980]">ME</span>
-            </h2>
-            <div className="about-content text-gray-700 dark:text-gray-300">
-              <Index />
+    <div className="relative min-h-screen">
+      <ParticleBackground />
+
+      <div className="relative z-10 container mx-auto px-6 py-20 lg:py-32">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Text Content */}
+          <div className="space-y-10">
+            <div className="space-y-4">
+              <h1 className="text-5xl lg:text-7xl font-bold text-gray-800 dark:text-white tracking-tight">
+                <span ref={refs.titleName} className="block">
+                  -
+                </span>
+                <span
+                  ref={refs.designation}
+                  className="block mt-3 bg-gradient-to-r from-[#FFB401] to-[#FF9000] bg-clip-text text-transparent"
+                >
+                  -
+                </span>
+              </h1>
+              <p
+                ref={refs.description}
+                className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed"
+              >
+                -
+              </p>
+            </div>
+
+            <button
+              ref={refs.button}
+              onClick={toggleModal}
+              className="group relative inline-flex items-center px-8 py-4 rounded-full bg-gradient-to-r from-[#FFB401] to-[#FF9000] text-white font-semibold 
+                transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[#FFB401]/20"
+            >
+              <span className="flex items-center">
+                {heroContent.heroBtn}
+                <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
+            </button>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 gap-6">
+              {heroContent.stats.map((stat, index) => (
+                <div
+                  key={index}
+                  className="group p-6 rounded-2xl bg-white/90 dark:bg-gray-800/50 backdrop-blur-sm
+                    shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl
+                    border border-gray-100 dark:border-gray-700"
+                >
+                  <div className="flex flex-col items-center">
+                    <div
+                      className="p-3 rounded-full bg-gradient-to-br from-[#FFB401]/20 to-[#FF9000]/20 
+                      text-[#FFB401] mb-4 group-hover:scale-110 transition-transform duration-300"
+                    >
+                      {stat.icon}
+                    </div>
+                    <span
+                      ref={(el) => (refs.stats.current[index] = el)}
+                      className="text-3xl font-bold bg-gradient-to-r from-[#FFB401] to-[#FF9000] bg-clip-text text-transparent"
+                    >
+                      0
+                    </span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                      {stat.label}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Image Section */}
+          <div className="relative">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <img
+                ref={refs.image}
+                src={heroImg}
+                alt="Hero"
+                className="w-full transition-transform duration-500 hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-[#FFB401]/10" />
+            </div>
+            <div className="absolute -bottom-6 -left-6">
+              <div className="relative w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 shadow-lg overflow-hidden">
+                <img
+                  ref={refs.mobileImage}
+                  src={heroImgMobile}
+                  alt="Mobile Hero"
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-[#FFB401]/10" />
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div
+          ref={refs.modal}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          style={{ opacity: 0, transform: "translateY(20px)" }}
+        >
+          <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={toggleModal}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+              aria-label="Close modal"
+            >
+              <X className="w-6 h-6 text-gray-500 dark:text-gray-400" />
+            </button>
+            <div className="p-8">
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">
+                ABOUT <span className="text-[#FFB401]">ME</span>
+              </h2>
+              <div className="prose prose-lg dark:prose-invert max-w-none">
+                <Index />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

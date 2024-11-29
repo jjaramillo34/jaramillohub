@@ -68,28 +68,52 @@
   "experienceCompany50": "Cityrealty.com",
   "experienceDetails50": "Worked on number of projects as a Research Analyst, responsible for data mining, data analysis and data visualization",
   "experienceCompanyName50": "Cityrealty.com",
-  "personalInfoMeta1": "nombre",
-  "personalInfoMetaInfo1": "Javier",
-  "personalInfoMeta2": "apellido",
-  "personalInfoMetaInfo2": "Jaramillo",
-  "personalInfoMeta3": "edad",
-  "personalInfoMetaInfo3": "44",
-  "personalInfoMeta4": "direccion",
-  "personalInfoMetaInfo4": "New York, NY, USA",
-  "personalInfoMeta5": "email",
-  "personalInfoMetaInfo5": "javier@jaramillohub.com",
-  "personalInfoMeta6": "telefono",
-  "personalInfoMetaInfo6": "+1 347 239 9026",
-  "personalInfoMeta7": "pagina web",
-  "personalInfoMetaInfo7": "datanaly.st",
-  "personalInfoMeta8": "freelance",
-  "personalInfoMetaInfo8": "Disponible",
-  "personalInfoMeta9": "degree",
-  "personalInfoMetaInfo9": "Computer Science",
-  "personalInfoMeta10": "language",
-  "personalInfoMetaInfo10": "Inglés, Español",
-  "personalInfos": "Informacion Personal",
-  "personalInfoButton": "Descargar CV",
+  "personalInfo": {
+    "title": "Información Personal",
+    "download": "Descargar CV",
+    "fields": {
+      "firstName": {
+        "label": "Nombre",
+        "value": "Javier"
+      },
+      "lastName": {
+        "label": "Apellido",
+        "value": "Jaramillo"
+      },
+      "age": {
+        "label": "Edad",
+        "value": "45"
+      },
+      "address": {
+        "label": "Dirección",
+        "value": "New York, NY, USA"
+      },
+      "email": {
+        "label": "Correo",
+        "value": "javier@jaramillohub.com"
+      },
+      "phone": {
+        "label": "Teléfono",
+        "value": "+1 347 239 9026"
+      },
+      "website": {
+        "label": "Sitio Web",
+        "value": "datanaly.st"
+      },
+      "freelance": {
+        "label": "Freelance",
+        "value": "Disponible"
+      },
+      "degree": {
+        "label": "Título",
+        "value": "Ciencias de la Computación"
+      },
+      "languages": {
+        "label": "Idiomas",
+        "value": "Inglés, Español"
+      }
+    }
+  },
   "skillsTitle": "Mis Habilidades",
   "educationTitle1": "Experiencia",
   "educationTitle2": "Educacion",
@@ -138,5 +162,92 @@
   "error": "Error",
   "notFound": "Lo sentimos, pero la página que busca no se puede encontrar.",
   "notFoundDescription": "Es posible que la página que busca haya sido eliminada, haya cambiado de nombre o esté temporalmente no disponible.",
-  "goToHomepage": "Volver a la página de inicio"
+  "goToHomepage": "Volver a la página de inicio",
+  "achievements": {
+    "title": "Logros",
+    "experience": {
+      "title": "Años de Experiencia",
+      "subtitle": "de experiencia"
+    },
+    "projects": {
+      "title": "Proyectos",
+      "subtitle": "completados"
+    },
+    "clients": {
+      "title": "Clientes Satisfechos",
+      "subtitle": "en todo el mundo"
+    },
+    "awards": {
+      "title": "Premios",
+      "subtitle": "recibidos"
+    }
+  },
+  "certifications": {
+    "title": "Certificaciones",
+    "viewCertificate": "Ver Certificado",
+    "types": {
+      "software": "Software",
+      "programming": "Programación",
+      "development": "Desarrollo"
+    }
+  },
+  "education": {
+    "title": "Educación",
+    "degree": "Título",
+    "institute": "Instituto",
+    "duration": "Duración",
+    "viewDetails": "Ver Detalles"
+  },
+  "courses": {
+    "title": "Cursos",
+    "viewCourse": "Ver Curso",
+    "platform": "Plataforma",
+    "duration": "Duración",
+    "completed": "Completado"
+  },
+  "common": {
+    "settings": "Configuración",
+    "language": "Idioma",
+    "theme": "Tema",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito"
+  },
+  "navigation": {
+    "scrollToTop": "Volver arriba",
+    "menu": {
+      "home": "Inicio",
+      "about": "Sobre mí",
+      "portfolio": "Portafolio",
+      "contact": "Contacto",
+      "blog": "Blog"
+    }
+  },
+  "social": {
+    "follow": "Sígueme en",
+    "links": {
+      "github": "Perfil de GitHub",
+      "linkedin": "Perfil de LinkedIn",
+      "twitter": "Perfil de Twitter",
+      "facebook": "Perfil de Facebook"
+    }
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "¡Hablemos de todo!",
+    "success": "¡Mensaje enviado con éxito!",
+    "error": "Algo salió mal. Por favor, inténtalo de nuevo.",
+    "form": {
+      "name": "Tu Nombre",
+      "email": "Tu Email",
+      "subject": "Asunto",
+      "message": "Tu Mensaje",
+      "send": "Enviar Mensaje"
+    },
+    "address": {
+      "title": "Dirección",
+      "email": "Envíame un Email",
+      "phone": "Llámame"
+    }
+  }
 }

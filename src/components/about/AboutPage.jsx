@@ -1,226 +1,100 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import Achievements from "./Achievements";
-import Education from "./Education";
-import EducationCourses from "./EducationCourses";
-import GitHub from "./GitHub";
-import Experience from "./Experience";
+import { motion } from "framer-motion";
+import PageTitle from "../common/PageTitle";
 import PersonalInfo from "./PersonalInfo";
 import Skills from "./Skills";
-import TechProjects from "./TechProjects";
-import Certifications from "./Certifications";
-import cv from "../../assets/img/Javier Jaramillo resume.webp";
-import heroImgMobile from "../../assets/img/hero/img-mobile.jpg";
-import gsap from "gsap";
+import EducationCourses from "./EducationCourses";
+import GitHub from "./GitHub";
+import Achievements from "./Achievements";
 
 const AboutPage = () => {
   const { t } = useTranslation();
-  const arrowRef = useRef();
-  const [showArrow, setShowArrow] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setShowArrow(true);
-      } else {
-        setShowArrow(false);
-      }
-    };
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
 
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (showArrow) {
-      gsap.fromTo(
-        arrowRef.current,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-        }
-      );
-    }
-  }, [showArrow]);
-
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
   };
 
   return (
-    <section className="main-content">
-      <div className="container">
-        <div className="row">
-          {/* Personal Info Starts */}
-          <div className="col-xl-6 col-lg-5 col-12">
-            <div className="row">
-              <div className="col-12"></div>
-              {/* End .col */}
-              <div className="col-12 d-block d-sm-none">
-                <img
-                  src={heroImgMobile}
-                  className="img-fluid main-img-mobile"
-                  alt="about avatar"
-                />
-              </div>
-              {/* image for mobile menu */}
-              <div className="col-12">
-                <PersonalInfo />
-              </div>
-              {/* End personal info */}
-              <div className="col-12 mt-1">
-                <a className="button" href={cv} download>
-                  <span className="button-text">{t("personalInfoButton")}</span>
-                  <span className="button-icon fa fa-download"></span>
-                </a>
-              </div>
-              {/* End download button */}
-            </div>
-          </div>
-          {/* Personal Info Ends */}
-          {/* Achievements Starts */}
-          <div className="col-xl-6 col-lg-7 col-12 mt-5 mt-lg-0">
-            <Achievements />
-          </div>
-          {/* Achievements Ends */}
-        </div>
-        {/* End .row */}
-        <hr className="separator" />
-        {/* Skills Starts */}
-        <div className="row">
-          <div className="col-12">
-            <h3 className="text-uppercase pb-4 pb-sm-5 mb-3 mb-sm-0 text-left text-sm-center custom-title ft-wt-600">
-              {t("skillsTitle")}
-            </h3>
-          </div>
-          <Skills />
-        </div>
-        {/* Skills Ends */}
-        <hr className="separator mt-1" />
-        {/* Experience & Education Starts */}
-        <div className="row">
-          <div className="col-12">
-            <h3 className="text-uppercase pb-5 mb-0 text-left text-sm-center custom-title ft-wt-600">
-              {t("educationTitle1")}
-              <span>&</span> {t("educationTitle2")}
-            </h3>
-          </div>
-          <div className="col-lg-6 m-15px-tb">
-            <div className="resume-box">
-              <h4
-                className="text-uppercase custom-title ft-wt-600"
-                style={{
-                  marginTop: "20px",
-                  textAlign: "center",
-                }}
-                id="experience"
-                name="experience"
-              >
-                {t("experienceTitle")}
-              </h4>
-              <Experience />
-              <h4
-                className="text-uppercase custom-title ft-wt-600"
-                style={{
-                  marginTop: "20px",
-                  textAlign: "center",
-                }}
-                id="techProjects"
-                name="techProjects"
-              >
-                {t("techProjectsTitle")}
-              </h4>
-              <TechProjects />
-              <h4
-                className="text-uppercase custom-title ft-wt-600"
-                style={{
-                  marginTop: "20px",
-                  textAlign: "center",
-                }}
-                id="github"
-                name="github"
-              >
-                {t("githubTitle")}
-              </h4>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="py-12 space-y-16"
+    >
+      {/* Title Section */}
+      <PageTitle
+        title={t("aboutmeTitle1")}
+        subtitle={t("aboutmeTitle2")}
+        backgroundText={t("aboutmeTitle1")}
+      />
 
-              <GitHub />
-            </div>
-          </div>
-          <div className="col-lg-6 m-15px-tb">
-            <div className="resume-box">
-              <h4
-                className="text-uppercase custom-title ft-wt-600"
-                style={{
-                  marginTop: "20px",
-                  textAlign: "center",
-                }}
-                id="education"
-                name="education"
-              >
-                {t("educationTitle")}
-              </h4>
-              <Education />
-              <h4
-                className="text-uppercase custom-title ft-wt-600"
-                style={{
-                  marginTop: "20px",
-                  textAlign: "center",
-                }}
-                id="certifications"
-                name="certifications"
-              >
-                {t("certificationsTitle")}
-              </h4>
-              <Certifications />
-            </div>
-            <div className="resume-box">
-              <h4
-                className="text-uppercase custom-title ft-wt-600"
-                style={{
-                  marginTop: "20px",
-                  textAlign: "center",
-                }}
-                id="courses"
-                name="courses"
-              >
-                {t("coursesTitle")}
-              </h4>
-              <EducationCourses />
-            </div>
-          </div>
+      {/* Personal Info Section */}
+      <motion.section variants={sectionVariants} className="mb-16">
+        <PersonalInfo />
+      </motion.section>
+
+      {/* Achievements Section */}
+      <motion.section variants={sectionVariants} className="mb-16">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white uppercase">
+            {t("achievementsTitle")}
+          </h2>
+          <div className="w-16 h-1 bg-[#FFB401] mx-auto mt-2"></div>
         </div>
-        {/* Experience & Education Ends */}
-      </div>
-      {showArrow && (
-        <button
-          ref={arrowRef}
-          onClick={handleScrollToTop}
-          style={{
-            position: "fixed",
-            bottom: "20px",
-            left: "20px",
-            backgroundColor: "#f0ad4e",
-            border: "none",
-            borderRadius: "50%",
-            width: "50px",
-            height: "50px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            cursor: "pointer",
-            boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-          }}
-        >
-          <i className="fa fa-arrow-up" style={{ color: "#fff" }}></i>
-        </button>
-      )}
-    </section>
+        <Achievements />
+      </motion.section>
+
+      {/* Skills Section */}
+      <motion.section variants={sectionVariants} className="mb-16">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white uppercase">
+            {t("skillsTitle")}
+          </h2>
+          <div className="w-16 h-1 bg-[#FFB401] mx-auto mt-2"></div>
+        </div>
+        <Skills />
+      </motion.section>
+
+      {/* Resume Section */}
+      <motion.section variants={sectionVariants} className="mb-16">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white uppercase">
+            {t("aboutmeTitle3")}
+          </h2>
+          <div className="w-16 h-1 bg-[#FFB401] mx-auto mt-2"></div>
+        </div>
+        <EducationCourses />
+      </motion.section>
+
+      {/* GitHub Stats Section */}
+      <motion.section variants={sectionVariants}>
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white uppercase">
+            {t("githubStatsTitle")}
+          </h2>
+          <div className="w-16 h-1 bg-[#FFB401] mx-auto mt-2"></div>
+        </div>
+        <GitHub />
+      </motion.section>
+    </motion.div>
   );
 };
 

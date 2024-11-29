@@ -63,7 +63,7 @@ const Portfolio = () => {
         </TabList>
 
         <div className="container mx-auto">
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <TabPanel key={category}>
               <AnimatePresence mode="wait">
                 <motion.div

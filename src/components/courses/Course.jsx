@@ -8,7 +8,6 @@ import client from "../../Hooks/sanityClient";
 const Course = () => {
   const [getModal, setGetModal] = useState(false);
   const [modalId, setModalId] = useState(1);
-  const [data, setData] = useState([]);
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleModal = (id) => {
@@ -18,10 +17,13 @@ const Course = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const query = '*[_type == "course"]';
-      const result = await client.fetch(query);
-      console.log("Result: ", result);
-      setData(result);
+      try {
+        const query = '*[_type == "course"]';
+        const result = await client.fetch(query);
+        console.log("Result: ", result);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
     };
 
     fetchData();
@@ -76,7 +78,7 @@ const Course = () => {
         </TabList>
 
         <div className="container mx-auto">
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <TabPanel key={category}>
               <AnimatePresence mode="wait">
                 <motion.div

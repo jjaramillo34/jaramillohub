@@ -1,9 +1,11 @@
 // sanityClient.js
-import sanityClient from "@sanity/client";
+import { createClient } from "@sanity/client";
 
-export default sanityClient({
+const client = createClient({
   projectId: "9i3th449",
   dataset: "production",
-  apiVersion: "2024-05-04",
   useCdn: true,
+  apiVersion: "2024-03-21",
 });
+
+export default client;

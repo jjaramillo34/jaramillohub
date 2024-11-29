@@ -16,11 +16,6 @@ export default function Testimonials() {
     },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
   const slideVariants = {
     enter: (direction) => {
       return {
@@ -122,7 +117,7 @@ export default function Testimonials() {
                   </div>
                   <div className="testimonial__description mt-6 w-full">
                     <blockquote className="text-gray-700 dark:text-white italic text-center text-md leading-relaxed">
-                      "{TestimonialData[currentIndex].description}"
+                      &ldquo;{TestimonialData[currentIndex].description}&rdquo;
                     </blockquote>
                   </div>
                 </div>

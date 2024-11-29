@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
 import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import { Send, MapPin } from "lucide-react";
+import "../styles/mapbox-custom.css";
+import Address from "./Address";
 
 const emailjsService = process.env.REACT_APP_EMAILJS_SERVICE_ID;
 const emailjsTemplate = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
@@ -21,6 +21,12 @@ export default function Contact() {
   const form = useRef(null);
   const mapContainer = useRef(null);
   const { t } = useTranslation();
+
+  console.log("Current translations:", {
+    title: t("contact.title"),
+    subtitle: t("contact.subtitle"),
+    formName: t("contact.form.name"),
+  });
 
   useEffect(() => {
     if (mapContainer.current) {
@@ -45,28 +51,12 @@ export default function Contact() {
       emailjs
         .sendForm(emailjsService, emailjsTemplate, form.current, emailjsUser)
         .then(
-          (result) => {
-            toast.success("Message Sent Successfully!", {
-              position: "top-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+          () => {
+            toast.success(t("contact.success"));
             form.current.reset();
           },
-          (error) => {
-            toast.error("Sorry, something went wrong!", {
-              position: "top-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+          () => {
+            toast.error(t("contact.error"));
           }
         );
     }
@@ -77,100 +67,105 @@ export default function Contact() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-    },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
   };
 
   return (
     <motion.div
+      variants={containerVariants}
       initial="hidden"
       animate="visible"
-      variants={containerVariants}
-      className="space-y-12"
+      className="container mx-auto px-4 py-12"
     >
-      <motion.form
-        id="myForm"
-        className="space-y-6"
-        ref={form}
-        onSubmit={sendEmail}
-        variants={containerVariants}
-      >
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          variants={containerVariants}
-        >
-          <motion.div variants={itemVariants}>
-            <input
-              type="text"
-              name="name"
-              placeholder={t("placeholderText1")}
-              required
-              className="w-full px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-full border-2 border-transparent focus:outline-none focus:border-[#FFB401] transition-colors duration-300"
-            />
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <input
-              type="email"
-              name="user_email"
-              placeholder={t("placeholderText2")}
-              required
-              className="w-full px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-full border-2 border-transparent focus:outline-none focus:border-[#FFB401] transition-colors duration-300"
-            />
-          </motion.div>
-        </motion.div>
-        <motion.div variants={itemVariants}>
-          <input
-            type="text"
-            name="subject"
-            placeholder={t("placeholderText3")}
-            required
-            className="w-full px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-full border-2 border-transparent focus:outline-none focus:border-[#FFB401] transition-colors duration-300"
-          />
-        </motion.div>
-        <motion.div variants={itemVariants}>
-          <textarea
-            name="message"
-            placeholder={t("placeholderText4")}
-            required
-            className="w-full px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-3xl border-2 border-transparent focus:outline-none focus:border-[#FFB401] transition-colors duration-300 h-32 resize-none"
-          ></textarea>
-        </motion.div>
-        <motion.div variants={itemVariants}>
-          <motion.button
-            type="submit"
-            className="px-8 py-3 bg-[#FFB401] text-white rounded-full hover:bg-[#E5A200] transition-colors duration-300 flex items-center justify-center"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="mr-2">{t("contactmeTitle")}</span>
-            <Send size={20} />
-          </motion.button>
-        </motion.div>
-      </motion.form>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {/* Contact Form */}
+        <motion.div variants={itemVariants} className="space-y-8">
+          <div className="text-center lg:text-left">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">
+              {t("contact.title")}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400">
+              {t("contact.subtitle")}
+            </p>
+          </div>
 
-      <motion.div variants={containerVariants}>
-        <motion.h3
-          className="text-2xl font-bold mb-4 text-[#FFB401] flex items-center"
-          variants={itemVariants}
-        >
-          <MapPin className="mr-2" size={24} />
-          My Office Location
-        </motion.h3>
-        <motion.div
-          ref={mapContainer}
-          className="h-96 rounded-2xl overflow-hidden shadow-lg"
-          variants={itemVariants}
-        />
-      </motion.div>
+          <form ref={form} onSubmit={sendEmail} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <motion.div variants={itemVariants}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder={t("contact.form.name")}
+                  required
+                  className="w-full px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 
+                    border border-transparent focus:border-[#FFB401] 
+                    text-gray-900 dark:text-white transition-colors duration-300"
+                />
+              </motion.div>
+
+              <motion.div variants={itemVariants}>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder={t("contact.form.email")}
+                  required
+                  className="w-full px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 
+                    border border-transparent focus:border-[#FFB401] 
+                    text-gray-900 dark:text-white transition-colors duration-300"
+                />
+              </motion.div>
+            </div>
+
+            <motion.div variants={itemVariants}>
+              <input
+                type="text"
+                name="subject"
+                placeholder={t("contact.form.subject")}
+                required
+                className="w-full px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 
+                  border border-transparent focus:border-[#FFB401] 
+                  text-gray-900 dark:text-white transition-colors duration-300"
+              />
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <textarea
+                name="message"
+                placeholder={t("contact.form.message")}
+                required
+                className="w-full px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 
+                  border border-transparent focus:border-[#FFB401] 
+                  text-gray-900 dark:text-white transition-colors duration-300 
+                  h-32 resize-none"
+              ></textarea>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <button
+                type="submit"
+                className="w-full px-8 py-3 rounded-lg bg-gradient-to-r 
+                  from-[#FFB401] to-[#FF9000] text-white font-medium
+                  hover:shadow-lg hover:shadow-[#FFB401]/20 
+                  transition-all duration-300"
+              >
+                {t("contact.form.send")}
+              </button>
+            </motion.div>
+          </form>
+        </motion.div>
+
+        {/* Address Information */}
+        <motion.div variants={itemVariants}>
+          <Address />
+        </motion.div>
+      </div>
     </motion.div>
   );
 }
